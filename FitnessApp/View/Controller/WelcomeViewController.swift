@@ -34,7 +34,7 @@ class WelcomeViewController: UIViewController {
             } else {
                 if snapshot!.exists {
                     let documentData = snapshot!.data()
-                    self.welcomeLabel.text = "Welcome, \(documentData!["username"] as! String)"
+//                    self.welcomeLabel.text = "Welcome, \(documentData!["username"] as! String)"
                     
                 }
                 

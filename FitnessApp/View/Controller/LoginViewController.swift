@@ -21,7 +21,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         updateTextFields()
         emailTextField.text = "mitko99penkov@gmail.com"
-        passwordTextField.text = "miti99"
+        passwordTextField.text = "123456"
         
     }
     

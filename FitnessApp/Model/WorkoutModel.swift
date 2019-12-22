@@ -8,11 +8,15 @@
 
 import UIKit
 
+struct Exercise {
+    var exercise : String
+    var repetitions : String
+    var muscleGroup : String
+}
+
 class WorkoutManager {
     static let shared = WorkoutManager()
-    var date: String = ""
-    var exercises : [String] = []
-    var reps : [Int] = []
+    var exercises : [Exercise] = []
+    var date : String = ""
     private init() { }
-    
 }
