@@ -10,14 +10,15 @@
 		266320D618C84C6B424A02F5 /* Pods_FitnessApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1179209AE56A41F7BB74A49 /* Pods_FitnessApp.framework */; };
 		3A32E6C756D5692588F9AE2D /* Pods_FitnessAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74DC574C0F19C3B0D99AD165 /* Pods_FitnessAppTests.framework */; };
 		4863506BD238B53C97E15B58 /* Pods_FitnessApp_FitnessAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 663AA3AA24C6E90B082919FB /* Pods_FitnessApp_FitnessAppUITests.framework */; };
+		4C65F5FD23AB989B00782D66 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65F5FC23AB989B00782D66 /* WelcomeViewController.swift */; };
+		4C65F5FF23AB998100782D66 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65F5FE23AB998100782D66 /* CalendarViewController.swift */; };
+		4C65F60523AE489700782D66 /* WorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65F60423AE489700782D66 /* WorkoutModel.swift */; };
 		4C79BBA923A3E41D00885375 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C79BBA823A3E41D00885375 /* LoginViewController.swift */; };
 		4C79BBAE23A3E45300885375 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C79BBAD23A3E45300885375 /* RegisterViewController.swift */; };
 		4C79BBB023A3EB4400885375 /* FirstSetupPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C79BBAF23A3EB4400885375 /* FirstSetupPageViewController.swift */; };
 		4C79BBB223A3EC2700885375 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C79BBB123A3EC2600885375 /* GoogleService-Info.plist */; };
-		4C79BBB423A3EE4900885375 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C79BBB323A3EE4900885375 /* WelcomeViewController.swift */; };
 		4C79BBB623A3F10900885375 /* IntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C79BBB523A3F10900885375 /* IntroductionViewController.swift */; };
 		4C79BBB823A3F11900885375 /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C79BBB723A3F11900885375 /* UserDetailsViewController.swift */; };
-		4C79BBBA23A3F96E00885375 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C79BBB923A3F96E00885375 /* CurrentUser.swift */; };
 		4C953CC823A3BB0600F5B618 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C953CC723A3BB0600F5B618 /* AppDelegate.swift */; };
 		4C953CCA23A3BB0600F5B618 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C953CC923A3BB0600F5B618 /* SceneDelegate.swift */; };
 		4C953CCF23A3BB0600F5B618 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C953CCD23A3BB0600F5B618 /* Main.storyboard */; };
@@ -47,14 +48,15 @@
 
 /* Begin PBXFileReference section */
 		130DFF75CB6E51B030D13BCB /* Pods-FitnessApp-FitnessAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FitnessApp-FitnessAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-FitnessApp-FitnessAppUITests/Pods-FitnessApp-FitnessAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4C65F5FC23AB989B00782D66 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		4C65F5FE23AB998100782D66 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		4C65F60423AE489700782D66 /* WorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutModel.swift; sourceTree = "<group>"; };
 		4C79BBA823A3E41D00885375 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4C79BBAD23A3E45300885375 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		4C79BBAF23A3EB4400885375 /* FirstSetupPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstSetupPageViewController.swift; sourceTree = "<group>"; };
 		4C79BBB123A3EC2600885375 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
-		4C79BBB323A3EE4900885375 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		4C79BBB523A3F10900885375 /* IntroductionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionViewController.swift; sourceTree = "<group>"; };
 		4C79BBB723A3F11900885375 /* UserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
-		4C79BBB923A3F96E00885375 /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		4C953CC423A3BB0600F5B618 /* FitnessApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitnessApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C953CC723A3BB0600F5B618 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C953CC923A3BB0600F5B618 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,7 +112,7 @@
 		4C79BBAA23A3E42400885375 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4C79BBB923A3F96E00885375 /* CurrentUser.swift */,
+				4C65F60423AE489700782D66 /* WorkoutModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -121,9 +123,10 @@
 				4C79BBA823A3E41D00885375 /* LoginViewController.swift */,
 				4C79BBAD23A3E45300885375 /* RegisterViewController.swift */,
 				4C79BBAF23A3EB4400885375 /* FirstSetupPageViewController.swift */,
-				4C79BBB323A3EE4900885375 /* WelcomeViewController.swift */,
 				4C79BBB523A3F10900885375 /* IntroductionViewController.swift */,
 				4C79BBB723A3F11900885375 /* UserDetailsViewController.swift */,
+				4C65F5FC23AB989B00782D66 /* WelcomeViewController.swift */,
+				4C65F5FE23AB998100782D66 /* CalendarViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -132,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				4C953CCD23A3BB0600F5B618 /* Main.storyboard */,
+				4C79BBAB23A3E42900885375 /* Controller */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -162,7 +166,6 @@
 			isa = PBXGroup;
 			children = (
 				4C79BBAC23A3E43400885375 /* View */,
-				4C79BBAB23A3E42900885375 /* Controller */,
 				4C79BBAA23A3E42400885375 /* Model */,
 				4C953CC723A3BB0600F5B618 /* AppDelegate.swift */,
 				4C953CC923A3BB0600F5B618 /* SceneDelegate.swift */,
@@ -456,15 +459,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C79BBBA23A3F96E00885375 /* CurrentUser.swift in Sources */,
+				4C65F5FF23AB998100782D66 /* CalendarViewController.swift in Sources */,
 				4C79BBB623A3F10900885375 /* IntroductionViewController.swift in Sources */,
 				4C79BBB023A3EB4400885375 /* FirstSetupPageViewController.swift in Sources */,
 				4C79BBA923A3E41D00885375 /* LoginViewController.swift in Sources */,
 				4C79BBAE23A3E45300885375 /* RegisterViewController.swift in Sources */,
+				4C65F5FD23AB989B00782D66 /* WelcomeViewController.swift in Sources */,
+				4C65F60523AE489700782D66 /* WorkoutModel.swift in Sources */,
 				4C953CD223A3BB0600F5B618 /* FitnessApp.xcdatamodeld in Sources */,
 				4C953CC823A3BB0600F5B618 /* AppDelegate.swift in Sources */,
 				4C953CCA23A3BB0600F5B618 /* SceneDelegate.swift in Sources */,
-				4C79BBB423A3EE4900885375 /* WelcomeViewController.swift in Sources */,
 				4C79BBB823A3F11900885375 /* UserDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

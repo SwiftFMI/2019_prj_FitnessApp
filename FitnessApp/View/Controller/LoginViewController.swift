@@ -20,6 +20,8 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateTextFields()
+        emailTextField.text = "mitko99penkov@gmail.com"
+        passwordTextField.text = "miti99"
         
     }
     
@@ -37,7 +39,6 @@ class LoginViewController: UIViewController {
                 } else {
                     let destinationVC = self.storyboard?.instantiateViewController(identifier: "welcome") as! WelcomeViewController
                     self.navigationController?.setViewControllers([destinationVC], animated: true)
-                
             }
         }
     }

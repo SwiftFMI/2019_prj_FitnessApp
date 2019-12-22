@@ -8,20 +8,46 @@
 
 import UIKit
 import Firebase
-class WelcomeViewController: UIViewController {
 
+class WelcomeViewController: UIViewController {
+    
+
+
+    @IBOutlet weak var workoutCalendar: UIButton!
+    
     let db = Firestore.firestore()
     @IBOutlet var welcomeLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         welcomeUser()
+        workoutCalendar.layer.cornerRadius = 15
         
     }
+    
     func welcomeUser() {
-        let currentUser = Auth.auth().currentUser!
-        let username = db.collection("users").document(currentUser.email!).collection("details").
-        welcomeLabel.text = "Welcome \(String(describing: username))"
+        let currentUserEmail = Auth.auth().currentUser!.email
+//        let username = db.collection("users").wheref
+        db.collection("users").document(currentUserEmail!).getDocument { (snapshot, error) in
+            if (error != nil) {
+                print(error)
+            } else {
+                if snapshot!.exists {
+                    let documentData = snapshot!.data()
+                    self.welcomeLabel.text = "Welcome, \(documentData!["username"] as! String)"
+                    
+                }
+                
+            }
+            
+        }
     }
+    
+    
+    
+    
+    
+    
 
     /*
     // MARK: - Navigation

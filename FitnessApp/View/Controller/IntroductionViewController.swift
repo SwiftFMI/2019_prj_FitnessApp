@@ -8,16 +8,17 @@
 
 import UIKit
 import Firebase
-import FirebaseDatabase
-import FirebaseAnalytics
+import TextFieldFloatingPlaceholder
 
 
 
 class IntroductionViewController: UIViewController{
-    @IBOutlet var usernameTextField: UITextField!
+    @IBOutlet var usernameTextField: TextFieldFloatingPlaceholder!
     var db = Firestore.firestore()
     override func viewDidLoad() {
         super.viewDidLoad()
+        usernameTextField.validationTrueLineColor = UIColor.black.withAlphaComponent(1)
+        usernameTextField.validationTrueLineEditingColor = UIColor.init(red: 203/255, green: 209/255, blue: 255, alpha: 1)
     }
     
     
@@ -25,9 +26,11 @@ class IntroductionViewController: UIViewController{
         setUsername();
     }
     func setUsername() {
+        
         if let user = Auth.auth().currentUser, let username = usernameTextField.text {
-            db.collection("users").document(user.email!).collection("details").addDocument(data: ["username": username])
-            
+            db.collection("users").document(user.email!).setData([
+                "username": username
+                ], merge: true)
         }
 
     /*

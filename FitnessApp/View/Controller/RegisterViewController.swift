@@ -38,7 +38,7 @@ class RegisterViewController: UIViewController {
                 if let e = error {
                         self.errorLabel.text = e.localizedDescription
                     } else {
-                    self.db.collection("users").addDocument(data: ["email": email as Any])
+                    self.db.collection("users").document(email)
                         let destinationVC = self.storyboard?.instantiateViewController(identifier: "setup") as! FirstSetupPageViewController
                         self.navigationController?.setViewControllers([destinationVC], animated: true)
                     }
