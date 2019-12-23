@@ -3,7 +3,11 @@ import Firebase
 import FSCalendar
 
 class CalendarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FSCalendarDataSource, FSCalendarDelegate {
+    
+    
     var currentDate = ""
+
+    
     let db = Firestore.firestore()
     @IBOutlet weak var tableView: UITableView!
     fileprivate weak var calendar : FSCalendar!
@@ -11,6 +15,9 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidLoad()
         tableView.reloadData()
         generateCalendar()
+        tableView.delegate = self
+        tableView.dataSource = self
+        
     }
     fileprivate var dateFormater : DateFormatter {
         let formatter = DateFormatter()
@@ -21,17 +28,28 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBAction func toggle(_ sender: Any) {
         if(calendar.scope == .month){
-            calendar.setScope(.week, animated: true)
+            calendar.scope = .week
         } else {
-            calendar.setScope(.month, animated: true)
+            calendar.scope = .month
         }
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        WorkoutManager.shared.exercises.removeAll()
         print("did select date: \(self.dateFormater.string(from: date))")
         self.currentDate = self.dateFormater.string(from: date)
-        let selectedDates = calendar.selectedDates.map({self.dateFormater.string(from: $0)})
-        print("selected dates is \(selectedDates)")
+        getExercises(date: currentDate)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 ) {
+            WorkoutManager.shared.currentCount = WorkoutManager.shared.exercises.count
+            print(WorkoutManager.shared.currentCount)
+            self.tableView.reloadData()
+        }
+
+        
+
+        
+//        let selectedDates = calendar.selectedDates.map({self.dateFormater.string(from: $0)})
+//        print("selected dates is \(selectedDates)")
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
@@ -50,46 +68,69 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let exercises:[Exercise] = getExercises(date: currentDate)
-        return exercises.count
-    }
+   
     
-    func getExercises(date: String) -> [Exercise] {
-        var exercises: [Exercise] = []
+    func getExercises(date: String) {
+        
         let user = Auth.auth().currentUser?.email
-        let exerciseReference = db.collection("\(String(describing: user))")
-            exerciseReference.addSnapshotListener { (snapshot, error) in
-                if let e = error {
-                    print(e.localizedDescription)
-                } else {
-                    if let snapshotDocuments = snapshot?.documents {
-                        for exercise in snapshotDocuments {
-                            let data = exercise.data()
-                            if let exerciseName = data["exercise"] as? String , let muscleGroup = data["muscle_group"] as? String, let repetitions = data["repetitions"] as? String {
-                                let newExercise = Exercise(exercise: exerciseName, repetitions: repetitions, muscleGroup: muscleGroup)
-                                exercises.append(newExercise)
-
-                            }
-                            
-                        }
-                    }
+        let exerciseReference = db.collection("users").document(user!).collection("workouts")
+        
+        exerciseReference.addSnapshotListener { (snapshot, error) in
+            if let e = error{
+                print(e.localizedDescription)
+            } else {
+                if snapshot == nil || snapshot?.documents.isEmpty == true{
+                    return
                 }
+                    else {
+                    for doc in snapshot!.documents {
+                            if doc.documentID == date && doc.exists{
+                                var newExercise : Exercise
+                                for data in doc.data() as! [String: [String:Any]]{
+                                    if let repetitions = data.value["repetitions"] as? String, let muscleGroup = data.value["muscle_group"] as? String {
+                                        newExercise = Exercise(exercise: data.key, repetitions: repetitions, muscleGroup: muscleGroup)
+                                            print("new Exercise: \(newExercise.exercise), repetitions: \(newExercise.repetitions), muscle group: \(newExercise.muscleGroup)")
+                                            WorkoutManager.shared.exercises.append(newExercise)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                }
+        
+    }
+    
+    
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    //        let exercises:[Exercise] = getExercises(date: currentDate)
+    //        return exercises.count
+        
+        return WorkoutManager.shared.currentCount
+    }
+    
+    
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            
+            let exercise = WorkoutManager.shared.exercises[indexPath.row]
+            let cell = tableView.dequeueReusableCell(withIdentifier: "exercise") as! ExerciseTableViewCell
+            cell.exerciseName.text = exercise.exercise
+            cell.repetitions.text = exercise.repetitions
+            return cell
         }
-        return exercises
-    }
     
     
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var exercisesForToday = getExercises(date: currentDate)
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "exercise") as! ExerciseTableViewCell
-        cell.exerciseName.text = exercisesForToday[indexPath.row].exercise
-        cell.repetitions.text = exercisesForToday[indexPath.row].repetitions
-        
-        return cell
-    }
+    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        var exercisesForToday = getExercises(date: currentDate)
+//
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "exercise") as! ExerciseTableViewCell
+//        cell.exerciseName.text = exercisesForToday[indexPath.row].exercise
+//        cell.repetitions.text = exercisesForToday[indexPath.row].repetitions
+//
+//        return cell
+//    }
     
     func generateCalendar() {
         let calendar = FSCalendar(frame: CGRect(x: 50, y: 100, width: 320, height: 300))

@@ -34,20 +34,25 @@ class CreateWorkoutViewController: UIViewController{
          let muscleGroupChosen = muscleGroups[muscleGroup.selectedRow(inComponent: 0)]
         if let exercise = exerciseField.text, let repetitions = repetitionsField.text, let user = Auth.auth().currentUser {
             let workoutData : [String: Any] = [
-                    date : [
                         exercise: [
                             "name": exercise,
                             "repetitions": repetitions,
-                            "muscle_group": muscleGroupChosen
-                            
+                            "muscle_group": muscleGroupChosen,
+                            "date": Date().timeIntervalSince1970
                         ]
-                    ]
             ]
 //                   var newWorkout = Workout(date: date, exercise: exercise, repetitions: Int(repetitions) ?? 0)
-            db.collection("users").document(user.email!).setData(workoutData, merge: true)
+            db.collection("users").document(user.email!).collection("workouts").document(date).setData(workoutData, merge: true)
             
     }
-    self.dismiss(animated: true, completion: nil)
+        let destinationVC = storyboard?.instantiateViewController(identifier: "calendar") as! CalendarViewController
+        if let tv = destinationVC.tableView {
+            tv.reloadData()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.dismiss(animated: true, completion: nil)
+        }
+    
 }
 }
 

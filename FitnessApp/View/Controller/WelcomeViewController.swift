@@ -27,14 +27,13 @@ class WelcomeViewController: UIViewController {
     
     func welcomeUser() {
         let currentUserEmail = Auth.auth().currentUser!.email
-//        let username = db.collection("users").wheref
         db.collection("users").document(currentUserEmail!).getDocument { (snapshot, error) in
             if (error != nil) {
-                print(error)
+                print(error?.localizedDescription)
             } else {
                 if snapshot!.exists {
                     let documentData = snapshot!.data()
-//                    self.welcomeLabel.text = "Welcome, \(documentData!["username"] as! String)"
+                    self.welcomeLabel.text = "Welcome, \(documentData!["username"] as! String)"
                     
                 }
                 

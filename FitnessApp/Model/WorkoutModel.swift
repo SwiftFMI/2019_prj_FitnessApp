@@ -17,6 +17,10 @@ struct Exercise {
 class WorkoutManager {
     static let shared = WorkoutManager()
     var exercises : [Exercise] = []
+    var currentCount : Int = 0
     var date : String = ""
     private init() { }
+    
 }
+
+
