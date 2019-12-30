@@ -87,8 +87,8 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                             if doc.documentID == date && doc.exists{
                                 var newExercise : Exercise
                                 for data in doc.data() as! [String: [String:Any]]{
-                                    if let repetitions = data.value["repetitions"] as? String, let muscleGroup = data.value["muscle_group"] as? String {
-                                        newExercise = Exercise(exercise: data.key, repetitions: repetitions, muscleGroup: muscleGroup)
+                                    if let repetitions = data.value["repetitions"] as? String, let muscleGroup = data.value["muscle_group"] as? String, let sets = data.value["sets"] as? String {
+                                        newExercise = Exercise(exercise: data.key, repetitions: repetitions, muscleGroup: muscleGroup, sets: sets)
                                             print("new Exercise: \(newExercise.exercise), repetitions: \(newExercise.repetitions), muscle group: \(newExercise.muscleGroup)")
                                             WorkoutManager.shared.exercises.append(newExercise)
                                             }
@@ -114,11 +114,16 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
             
             let exercise = WorkoutManager.shared.exercises[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: "exercise") as! ExerciseTableViewCell
+            
             cell.exerciseName.text = exercise.exercise
-            cell.repetitions.text = exercise.repetitions
+            cell.repetitions.text = "\(exercise.repetitions) reps"
+            cell.sets.text = "\(exercise.sets) sets"
             return cell
         }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 125.0
+    }
     
     
     

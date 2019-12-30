@@ -12,11 +12,15 @@ class ExerciseTableViewCell: UITableViewCell {
 //    var exersise: String = ""
 //    var repetitions: 
 
+    @IBOutlet weak var background: UIView!
     @IBOutlet weak var exerciseName: UILabel!
     @IBOutlet weak var repetitions: UILabel!
+    @IBOutlet weak var sets: UILabel!
+    @IBOutlet weak var muscleGroup: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        background.layer.cornerRadius = 15
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

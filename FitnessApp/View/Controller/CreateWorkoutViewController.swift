@@ -19,6 +19,7 @@ class CreateWorkoutViewController: UIViewController{
     @IBOutlet weak var exerciseField: UITextField!
     @IBOutlet weak var repetitionsField: UITextField!
     @IBOutlet weak var muscleGroup: UIPickerView!
+    @IBOutlet weak var setsField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,14 +32,15 @@ class CreateWorkoutViewController: UIViewController{
     
     
     @IBAction func addExercise(_ sender: UIButton) {
-         let muscleGroupChosen = muscleGroups[muscleGroup.selectedRow(inComponent: 0)]
-        if let exercise = exerciseField.text, let repetitions = repetitionsField.text, let user = Auth.auth().currentUser {
+        let muscleGroupChosen = muscleGroups[muscleGroup.selectedRow(inComponent: 0)]
+        if let exercise = exerciseField.text, let repetitions = repetitionsField.text, let sets =  setsField.text, let user = Auth.auth().currentUser {
             let workoutData : [String: Any] = [
                         exercise: [
                             "name": exercise,
                             "repetitions": repetitions,
                             "muscle_group": muscleGroupChosen,
-                            "date": Date().timeIntervalSince1970
+                            "date": Date().timeIntervalSince1970,
+                            "sets": sets
                         ]
             ]
 //                   var newWorkout = Workout(date: date, exercise: exercise, repetitions: Int(repetitions) ?? 0)
@@ -76,15 +78,7 @@ extension CreateWorkoutViewController : UIPickerViewDataSource, UIPickerViewDele
     
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+   
 
 
 

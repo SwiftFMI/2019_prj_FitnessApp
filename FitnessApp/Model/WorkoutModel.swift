@@ -12,6 +12,7 @@ struct Exercise {
     var exercise : String
     var repetitions : String
     var muscleGroup : String
+    var sets : String
 }
 
 class WorkoutManager {
