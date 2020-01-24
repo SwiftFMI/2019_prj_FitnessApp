@@ -28,8 +28,8 @@ class IntroductionViewController: UIViewController{
     func setUsername() {
         
         if let user = Auth.auth().currentUser, let username = usernameTextField.text {
-            db.collection("users").document(user.email!).setData([
-                "username": username
+            db.collection(Constants.CollectionNames.users).document(user.email!).setData([
+                Constants.DocumentFields.username: username
                 ], merge: true)
         }
 

@@ -30,8 +30,8 @@ class UserDetailsViewController: UIViewController {
     }
     func updateUserDetails() {
         if let job = jobField.text,let user = Auth.auth().currentUser,  let age = ageField.text {
-            db.collection("users").document(user.email!).updateData(["job":job, "age":age])
-            let destinationVC = storyboard?.instantiateViewController(identifier: "welcome") as! WelcomeViewController
+            db.collection(Constants.CollectionNames.users).document(user.email!).updateData([Constants.DocumentFields.job:job, Constants.DocumentFields.age:age])
+            let destinationVC = storyboard?.instantiateViewController(identifier: Constants.ControllersIdentifiers.tabController) as! UITabBarController
             navigationController?.setViewControllers([destinationVC], animated: true)
             }
         }

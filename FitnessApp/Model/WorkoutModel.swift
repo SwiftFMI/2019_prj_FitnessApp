@@ -9,19 +9,30 @@
 import UIKit
 
 struct Exercise {
-    var exercise : String
+    var exerciseName : String
     var repetitions : String
     var muscleGroup : String
+    var timeOfCreation: Double
     var sets : String
+}
+
+struct Workout {
+    var exercises : [Exercise]
+    
 }
 
 class WorkoutManager {
     static let shared = WorkoutManager()
     var exercises : [Exercise] = []
-    var currentCount : Int = 0
+    var workouts : [String] = []
+    var numberOfExercises : Int = 0
+    var numberOfWorkouts : Int = 0
     var date : String = ""
-    private init() { }
+    var newExercise : Exercise = Exercise(exerciseName: "", repetitions: "", muscleGroup: "", timeOfCreation: 0.0, sets: "")
     
+    let muscleGroups : [String] = ["Shoulders", "Biceps",
+    "Abs","Tighs", "Calves", "Back", "Chest"]
+    private init() { }
 }
 
 
