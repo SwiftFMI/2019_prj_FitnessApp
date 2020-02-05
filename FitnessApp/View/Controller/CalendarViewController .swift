@@ -233,13 +233,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    func updateUI() {
-        refreshControl.addTarget(self, action: #selector(refreshExercisesData(_:)), for: .valueChanged)
-    }
-    
-    @objc privateFunc refreshExercisesData(_ sender: Any) {
-        displayExercises(date: WorkoutManager.shared.date)
-    }
     
     func generateCalendar() {
         let calendar = FSCalendar(frame: CGRect(x: 50, y: 100, width: 320, height: 300))
