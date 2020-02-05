@@ -1,10 +1,3 @@
-//
-//  ProfileTableViewController.swift
-//  
-//
-//  Created by Mitko on 1/24/20.
-//
-
 import UIKit
 import Firebase
 import FirebaseStorage
@@ -131,11 +124,3 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         }
     
     }
-
-
-
-
-
-    
-
- 

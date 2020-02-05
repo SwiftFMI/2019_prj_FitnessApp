@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/mitkopenkov/Desktop/iOS Projects/FitnessApp/FitnessApp/View/Controller/ProfileTableViewController.swift">
+      location = "group:/Users/mitkopenkov/Desktop/FitnessAppFMI/FitnessApp/Controller/ProfileTableViewController.swift">
    </FileRef>
    <FileRef
       location = "group:FitnessApp.xcodeproj">

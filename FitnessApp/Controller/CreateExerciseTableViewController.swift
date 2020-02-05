@@ -104,3 +104,4 @@ extension CreateExerciseTableViewController : UIPickerViewDataSource, UIPickerVi
         muscleGroupChosen = muscleGroups[row]
     }
 }
+

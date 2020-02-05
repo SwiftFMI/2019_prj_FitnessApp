@@ -351,7 +351,7 @@ sign in to continue</string>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Change Picture"/>
                                                     <connections>
-                                                        <action selector="changeProfilePicture:" destination="YKo-yM-flx" eventType="touchUpInside" id="NbF-x4-X6O"/>
+                                                        <action selector="changeProfilePicture:" destination="YKo-yM-flx" eventType="touchUpInside" id="Yy7-gb-dGt"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="mitkopenkov" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UVa-vX-HI9">
@@ -423,8 +423,12 @@ sign in to continue</string>
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Profile" image="person" catalog="system" id="ZhI-6H-a6x"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="PIo-Xl-Kp3">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                     <connections>
-                        <outlet property="profilePicture" destination="lXu-oy-9Q2" id="AcV-JZ-UaP"/>
+                        <outlet property="nameLabel" destination="UVa-vX-HI9" id="m2O-oT-88C"/>
+                        <outlet property="profileImage" destination="lXu-oy-9Q2" id="VyO-We-n3L"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="stI-ZL-QPy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -446,12 +450,12 @@ sign in to continue</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Exercise Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KPj-ig-cJl" customClass="JVFloatLabeledTextField">
-                                <rect key="frame" x="20" y="239" width="181" height="46"/>
+                                <rect key="frame" x="20" y="239" width="181" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Sets" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MZi-DG-IcX" customClass="JVFloatLabeledTextField">
-                                <rect key="frame" x="209" y="239" width="67.5" height="46"/>
+                                <rect key="frame" x="209" y="239" width="67.5" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="67.5" id="iTe-Vw-ruP"/>
                                 </constraints>
@@ -459,7 +463,7 @@ sign in to continue</string>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Reps" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bEf-Mz-ZFS" customClass="JVFloatLabeledTextField">
-                                <rect key="frame" x="287" y="239" width="60.5" height="46"/>
+                                <rect key="frame" x="287" y="239" width="60.5" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60.5" id="jqX-Db-0Eo"/>
                                 </constraints>
@@ -575,7 +579,6 @@ sign in to continue</string>
         <!--Custom Workout Preview View Controller-->
         <scene sceneID="2Sw-pd-0ZX">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ap4-Ya-X61" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="workoutPreview" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xZq-Tp-LXY" customClass="CustomWorkoutPreviewViewController" customModule="FitnessApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cuF-C3-ooL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -639,6 +642,7 @@ sign in to continue</string>
                         <outlet property="workoutTitle" destination="6Cp-7X-tNF" id="lWA-bV-88d"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ap4-Ya-X61" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3368" y="2833"/>
         </scene>
