@@ -351,7 +351,7 @@ sign in to continue</string>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Change Picture"/>
                                                     <connections>
-                                                        <action selector="changeProfilePicture:" destination="YKo-yM-flx" eventType="touchUpInside" id="Yy7-gb-dGt"/>
+                                                        <action selector="changeProfilePicture:" destination="YKo-yM-flx" eventType="touchUpInside" id="fyP-PU-XwC"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="mitkopenkov" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UVa-vX-HI9">
@@ -427,8 +427,7 @@ sign in to continue</string>
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
                     <connections>
-                        <outlet property="nameLabel" destination="UVa-vX-HI9" id="m2O-oT-88C"/>
-                        <outlet property="profileImage" destination="lXu-oy-9Q2" id="VyO-We-n3L"/>
+                        <outlet property="profilePicture" destination="lXu-oy-9Q2" id="XTP-3M-4bb"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="stI-ZL-QPy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
