@@ -38,9 +38,6 @@ class YourWorkoutsViewController: UIViewController {
         let destinationVC = storyboard?.instantiateViewController(identifier: Constants.ControllersIdentifiers.createRoutine) as! CreateWorkoutViewController
         destinationVC.addWorkoutRoutineDelegate = self
         WorkoutManager.shared.workouts.removeAll()
-        for wo in WorkoutManager.shared.workouts {
-            print(wo)
-        }
         present(destinationVC, animated: true, completion: nil)
     }
     
@@ -104,21 +101,15 @@ extension YourWorkoutsViewController: UITableViewDataSource, UITableViewDelegate
         
         let delete = UIContextualAction(style: .destructive, title: Constants.SwipeAction.delete) { (action, view, nil) in
             if let user = Auth.auth().currentUser?.email, let workoutToBeDeleted = WorkoutManager.shared.workouts[indexPath.row] as? String{
-                self.db.collection(Constants.CollectionNames.users).document(user).collection(Constants.CollectionNames.customWorkouts).document(workoutToBeDeleted).delete()
-                
+            self.db.collection(Constants.CollectionNames.users).document(user).collection(Constants.CollectionNames.customWorkouts).document(workoutToBeDeleted).delete()
                 
                 WorkoutManager.shared.numberOfWorkouts -= 1
                 WorkoutManager.shared.workouts.removeAll { (workout) -> Bool in
                     return workout == workoutToBeDeleted
                 }
-                    
                     tableView.deleteRows(at: [indexPath], with: .bottom)
-                    
                 }
-            
             }
-        
-        
         delete.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         return UISwipeActionsConfiguration(actions: [delete])
     }
@@ -130,8 +121,9 @@ extension YourWorkoutsViewController: addWorkoutRoutineDelegate {
         print("add workout delegate")
         WorkoutManager.shared.workouts.removeAll()
         self.getWorkouts()
+        WorkoutManager.shared.numberOfWorkouts += 1
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            WorkoutManager.shared.numberOfWorkouts += 1
+            
             self.tableView.reloadData()
         }
     }

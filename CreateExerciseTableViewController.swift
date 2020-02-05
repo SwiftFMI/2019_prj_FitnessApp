@@ -67,7 +67,7 @@ class CreateExerciseTableViewController: UITableViewController {
                     WorkoutManager.shared.date = date
                     db.collection(Constants.CollectionNames.users).document(user.email!).collection(Constants.CollectionNames.schedueledWorkouts).document(date).setData(workoutData, merge: true)
                     addExerciseDelegate!.addExercice(date: date)
-                    self.dismiss(animated: true, completion: nil)  
+                    self.dismiss(animated: true, completion: nil)
             }
         }
         else {

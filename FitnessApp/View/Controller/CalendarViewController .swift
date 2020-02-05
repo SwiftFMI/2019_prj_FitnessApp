@@ -15,6 +15,8 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     let db = Firestore.firestore()
     @IBOutlet weak var tableView: UITableView!
     fileprivate weak var calendar : FSCalendar!
+    private let refreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         generateCalendar()
@@ -22,7 +24,9 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.dataSource = self
         calendar.scope = .month
         let formattedDate = self.dateFormater.string(from: Date())
+        navigationController?.setNavigationBarHidden(true, animated: true)
         currentDate = formattedDate
+        WorkoutManager.shared.date = formattedDate
         print(formattedDate)
         displayExercises(date: currentDate)
     }
@@ -121,15 +125,23 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                     WorkoutManager.shared.exercises.sort { (ex1: Exercise, ex2: Exercise) -> Bool in
                         ex1.timeOfCreation < ex2.timeOfCreation
                     }
-                                }
                             }
                         }
+                    }
             }
 
-    
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return WorkoutManager.shared.numberOfExercises
+    @IBAction func choseWorkout(_ sender: UIButton) {
+        let destinationVC = storyboard?.instantiateViewController(identifier: Constants.ControllersIdentifiers.chooseWorkout) as! ChooseWorkoutViewController
+        destinationVC.addExerciseDelegate = self
+        destinationVC.date = currentDate
+        
     }
+    
+    
+    
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return WorkoutManager.shared.numberOfExercises
+        }
     
     
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -219,6 +231,14 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         if WorkoutManager.shared.numberOfExercises == 0 {
             
         }
+    }
+    
+    func updateUI() {
+        refreshControl.addTarget(self, action: #selector(refreshExercisesData(_:)), for: .valueChanged)
+    }
+    
+    @objc privateFunc refreshExercisesData(_ sender: Any) {
+        displayExercises(date: WorkoutManager.shared.date)
     }
     
     func generateCalendar() {

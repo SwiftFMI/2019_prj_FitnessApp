@@ -38,7 +38,9 @@ class CreateWorkoutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
-        tableView.dataSource = self 
+        tableView.dataSource = self
+        muscleGroup.dataSource = self
+        muscleGroup.delegate = self
         exercises.removeAll()
     }
     
@@ -82,22 +84,25 @@ extension CreateWorkoutViewController: UITableViewDataSource, UITableViewDelegat
         return cell
     }
     
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        <#code#>
+//    }
+    
 }
 
-
 extension CreateWorkoutViewController : UIPickerViewDataSource, UIPickerViewDelegate {
-     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-         return 1
-     }
-     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return muscleGroups[row]
-     }
-     
-     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-         return muscleGroups.count
-     }
-     
-     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-         muscleGroupChosen = muscleGroups[row]
-     }
- }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return muscleGroups.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        muscleGroupChosen = muscleGroups[row]
+    }
+}

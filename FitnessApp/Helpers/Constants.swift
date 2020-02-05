@@ -21,6 +21,7 @@ struct Constants {
         static let createExercise = "createExercise"
         static let createRoutine = "CreateRoutine"
         static let workoutPreview = "workoutPreview"
+        static let chooseWorkout = "chooseWorkout"
     }
     
     
@@ -45,6 +46,10 @@ struct Constants {
         static let timeOfCreation = "timeOfCreation"
         static let exerciseName = "exerciseName"
         static let date = "date"
+    }
+    
+    struct ImageCollections {
+        static let profileImages = "profileImages"
     }
     
     struct CellIdentifiers {
