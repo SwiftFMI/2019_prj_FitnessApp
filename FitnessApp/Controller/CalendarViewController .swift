@@ -4,7 +4,7 @@ import FSCalendar
 import IQKeyboardManagerSwift
 
 
-class CalendarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FSCalendarDataSource, FSCalendarDelegate {
+class CalendarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, FSCalendarDataSource, FSCalendarDelegate {
     
     
     var currentDate = ""
@@ -15,6 +15,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     let db = Firestore.firestore()
     @IBOutlet weak var tableView: UITableView!
     fileprivate weak var calendar : FSCalendar!
+    @IBOutlet private weak var cameraButton: UIButton!
     private let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
@@ -81,6 +82,24 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
             WorkoutManager.shared.numberOfExercises = WorkoutManager.shared.exercises.count
             print(WorkoutManager.shared.numberOfExercises)
             self.tableView.reloadData()
+        }
+    }
+    
+    
+    @IBAction func openCamera(_ sender: Any) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        present(imagePicker, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        guard let image = info[.editedImage] as? UIImage else {
+            print("No image found")
+            return
         }
     }
     

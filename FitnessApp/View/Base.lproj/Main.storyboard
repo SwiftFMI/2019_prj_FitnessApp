@@ -190,16 +190,26 @@ sign in to continue</string>
                                     <action selector="addExercise:" destination="TuF-5K-sNj" eventType="touchUpInside" id="air-Py-Oh5"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qzN-Ta-cOJ">
+                                <rect key="frame" x="168" y="412" width="78" height="22"/>
+                                <state key="normal" image="camera" catalog="system"/>
+                                <connections>
+                                    <action selector="openCamera:" destination="TuF-5K-sNj" eventType="touchUpInside" id="291-9R-BIe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="8O4-2z-CzV" firstAttribute="top" secondItem="ORq-Yu-D6x" secondAttribute="bottom" constant="8" id="5yw-f5-lAd"/>
                             <constraint firstItem="Wgt-hZ-jt7" firstAttribute="trailing" secondItem="ORq-Yu-D6x" secondAttribute="trailing" constant="20" id="EoM-Su-lnq"/>
                             <constraint firstItem="8O4-2z-CzV" firstAttribute="top" secondItem="qdV-Dx-xZf" secondAttribute="bottom" constant="8" id="HMB-kx-lDs"/>
+                            <constraint firstItem="ORq-Yu-D6x" firstAttribute="leading" secondItem="qzN-Ta-cOJ" secondAttribute="trailing" constant="59" id="QyD-TV-R6J"/>
                             <constraint firstItem="qdV-Dx-xZf" firstAttribute="top" secondItem="Wgt-hZ-jt7" secondAttribute="top" constant="360" id="UtM-Su-VOc"/>
                             <constraint firstItem="Wgt-hZ-jt7" firstAttribute="trailing" secondItem="8O4-2z-CzV" secondAttribute="trailing" id="YOI-iS-Lrv"/>
+                            <constraint firstItem="8O4-2z-CzV" firstAttribute="top" secondItem="qzN-Ta-cOJ" secondAttribute="bottom" constant="8" id="iRZ-oU-RYs"/>
                             <constraint firstItem="ORq-Yu-D6x" firstAttribute="baseline" secondItem="qdV-Dx-xZf" secondAttribute="baseline" id="jhF-t3-CF6"/>
                             <constraint firstItem="8O4-2z-CzV" firstAttribute="leading" secondItem="Wgt-hZ-jt7" secondAttribute="leading" id="nc3-hU-Up1"/>
+                            <constraint firstItem="qzN-Ta-cOJ" firstAttribute="leading" secondItem="qdV-Dx-xZf" secondAttribute="trailing" constant="38" id="qJf-lV-ngg"/>
                             <constraint firstItem="8O4-2z-CzV" firstAttribute="centerX" secondItem="XqS-vS-nlV" secondAttribute="centerX" id="r9h-UU-dd5"/>
                             <constraint firstItem="qdV-Dx-xZf" firstAttribute="leading" secondItem="Wgt-hZ-jt7" secondAttribute="leading" constant="16" id="wY5-hy-LTy"/>
                             <constraint firstAttribute="bottomMargin" secondItem="8O4-2z-CzV" secondAttribute="bottom" id="wd2-y7-kr0"/>
@@ -209,6 +219,7 @@ sign in to continue</string>
                     <tabBarItem key="tabBarItem" title="Calendar" image="calendar" catalog="system" id="Eva-cU-QFF"/>
                     <navigationItem key="navigationItem" id="0q9-JL-ZaR"/>
                     <connections>
+                        <outlet property="cameraButton" destination="qzN-Ta-cOJ" id="Gay-XO-3Zg"/>
                         <outlet property="tableView" destination="8O4-2z-CzV" id="hN8-1o-GIS"/>
                     </connections>
                 </viewController>
@@ -1156,6 +1167,7 @@ How should we call you?</string>
     </scenes>
     <resources>
         <image name="calendar" catalog="system" width="64" height="54"/>
+        <image name="camera" catalog="system" width="64" height="48"/>
         <image name="dumbbell" width="88" height="46"/>
         <image name="next" width="265" height="68"/>
         <image name="person" catalog="system" width="64" height="60"/>
