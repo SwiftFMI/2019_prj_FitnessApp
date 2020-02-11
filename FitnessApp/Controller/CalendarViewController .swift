@@ -103,6 +103,36 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    @objc fileprivate func uploadPhoto() {
+        
+    }
+    
+    @objc fileprivate func downloadPhoto() {
+        guard let image = UIImageView.image, let data = image.jpegData(compressionQuality: 1.0) else { presentAlert(title: "Error", message: "Something went wrong") return }
+        let imageName = UUID().uuidString
+        let imageReference = Storage.storage().reference().child().(imageName)
+        
+        imageReference.putData(data, metadata: nil) { (metadata, err) in
+            if let err = err {
+                self.presentAlert(title: "Error", message: err.localizedDescription)
+                return
+            }
+            imageReference.downloadURL(completion: { ( url, err) in
+                if let err = err {
+                self.presentAlert(title: "Error", message: err.localizedDescription)
+                return
+                }
+                guard let url = url, let urlString = url.absoluteString  else {
+                    self.presentAlert(title: "Error", message: err.localizedDescription)
+                        return
+                }
+                let dataReference = Firestore.firestore().collection().document()
+                let documentUid = dataReference.documentID
+                let data = [MyKeys.uid: documentUid, MyKeys.imageURL: urlString]
+            })
+        }
+    }
+    
     @IBAction func addExercise(_ sender: Any) {
         let destinationVC = storyboard?.instantiateViewController(identifier: Constants.ControllersIdentifiers.createExercise) as! CreateExerciseTableViewController
         
