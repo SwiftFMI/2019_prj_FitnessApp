@@ -106,7 +106,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     //MARK: - Image database handling 
     
-    @objc fileprivate func uploadPhoto(image: UIImage) {
+   /* @objc fileprivate func uploadPhoto(image: UIImage) {
          guard let imageData: Data = image.jpegData(compressionQuality: 0.1) else {
              return
          }
@@ -128,6 +128,51 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
              })
          }
     }
+    */
+    
+    func uploadPhoto(image: UIImage) {
+               guard let data = image.jpegData(compressionQuality: 1.0) else {
+                   return
+               }
+               
+               let imageName = UUID().uuidString
+               let imageReference = Storage.storage().reference().child("images").child(imageName)
+               
+               imageReference.putData(data, metadata: nil) { (metadata, err) in
+                   if let err = err {
+                       return
+                   }
+                   imageReference.downloadURL { (url, err) in
+                       if let err = err {
+                           return
+                       }
+                       guard let url = url else {
+                           return
+                       }
+                       
+                       let dataReference = self.db.collection(Constants.CollectionNames.users).document(self.user!)
+                       let documentID = dataReference.documentID as? String
+                       let urlString = url.absoluteString
+                       
+                       let data = [
+                           "profileImage" : [
+                               "imageUid": documentID,
+                               "imageURL": urlString
+                           ]
+                           
+                       ]
+                       dataReference.setData(data, merge: true) { (err) in
+                           if let err = err {
+                               print(err)
+                           } else {
+                               UserDefaults.standard.set(documentID, forKey: "imageURL")
+                           }
+                           
+                       }
+                       
+                   }
+               }
+           }
     
     @objc fileprivate func downloadPhoto() {
        
