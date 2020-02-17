@@ -1,8 +1,8 @@
 //
-//  CalendarExerciseTableViewCell.swift
+//  CalendarExcersiseTableViewCell.swift
 //  FitnessApp
 //
-//  Created by Mitko on 1/13/20.
+//  Created by Nevena Kirova on 17.02.20.
 //  Copyright © 2020 Mitko. All rights reserved.
 //
 

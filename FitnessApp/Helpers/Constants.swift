@@ -12,6 +12,7 @@ struct Constants {
     struct Profile {
         static let email = "m_penkov@gmail.com"
         static let password = "123456"
+       
     }
     
     struct ControllersIdentifiers {
@@ -55,6 +56,7 @@ struct Constants {
     struct CellIdentifiers {
         static let exercise = "exercise"
         static let routine = "workoutRoutine"
+         static let user = "user"
     }
     
     struct DateFormatter {
