@@ -85,7 +85,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    
+    //MARK: - ImagePicker
     @IBAction func openCamera(_ sender: Any) {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .camera
@@ -97,40 +97,40 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
         
-        guard let image = info[.editedImage] as? UIImage else {
-            print("No image found")
-            return
-        }
+        let newImage = info[.originalImage] as? UIImage
+        let currentUser = Auth.auth().currentUser
+        //add images to be an array of images in the database
+        currentUser.images.append(newImage)
+        uploadPhoto(image: newImage!)
     }
     
-    @objc fileprivate func uploadPhoto() {
-        
+    //MARK: - Image database handling 
+    
+    @objc fileprivate func uploadPhoto(image: UIImage) {
+         guard let imageData: Data = image.jpegData(compressionQuality: 0.1) else {
+             return
+         }
+
+         let metaDataConfig = StorageMetadata()
+         metaDataConfig.contentType = "image/jpg"
+        //configure the right path
+         let storageRef = Storage.storage().reference().child("\(Auth.auth().currentUser?.uid ?? "").png")
+
+         storageRef.putData(imageData, metadata: metaDataConfig){ (metaData, error) in
+             if let error = error {
+                 print(error.localizedDescription)
+
+                 return
+             }
+
+             storageRef.downloadURL(completion: { (url: URL?, error: Error?) in
+                print(url?.absoluteString as Any) // <- Download URL
+             })
+         }
     }
     
     @objc fileprivate func downloadPhoto() {
-        guard let image = UIImageView.image, let data = image.jpegData(compressionQuality: 1.0) else { presentAlert(title: "Error", message: "Something went wrong") return }
-        let imageName = UUID().uuidString
-        let imageReference = Storage.storage().reference().child().(imageName)
-        
-        imageReference.putData(data, metadata: nil) { (metadata, err) in
-            if let err = err {
-                self.presentAlert(title: "Error", message: err.localizedDescription)
-                return
-            }
-            imageReference.downloadURL(completion: { ( url, err) in
-                if let err = err {
-                self.presentAlert(title: "Error", message: err.localizedDescription)
-                return
-                }
-                guard let url = url, let urlString = url.absoluteString  else {
-                    self.presentAlert(title: "Error", message: err.localizedDescription)
-                        return
-                }
-                let dataReference = Firestore.firestore().collection().document()
-                let documentUid = dataReference.documentID
-                let data = [MyKeys.uid: documentUid, MyKeys.imageURL: urlString]
-            })
-        }
+       
     }
     
     @IBAction func addExercise(_ sender: Any) {
