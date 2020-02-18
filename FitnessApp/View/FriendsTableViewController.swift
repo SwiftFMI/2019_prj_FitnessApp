@@ -30,6 +30,7 @@ class FriendsTableViewController: UITableViewController, UISearchResultsUpdating
         getAllUsers()
         tableView.reloadData()
     }
+    
         
     func setupSearch() {
         

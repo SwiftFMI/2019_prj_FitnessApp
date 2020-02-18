@@ -64,7 +64,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         let scheduledWorkoutDocument = db.collection(Constants.CollectionNames.users).document(user!).collection(Constants.CollectionNames.schedueledWorkouts).document(formattedDate)
         scheduledWorkoutDocument.getDocument { (document, error) in
             if let doc = document, doc.exists {
-                print("yeah")
                 numberOfEvents = 1
             }
         }

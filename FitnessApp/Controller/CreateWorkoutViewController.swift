@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 protocol addWorkoutRoutineDelegate {
-    func addWorkout()
+    func addWorkout(workout: String)
 }
 
 class CreateWorkoutViewController: UIViewController {
@@ -65,7 +65,8 @@ class CreateWorkoutViewController: UIViewController {
     }
     
     @IBAction func generateWorkout(_ sender: Any) {
-        addWorkoutRoutineDelegate.addWorkout()
+        let workoutCreated = workoutTitle.text!
+        addWorkoutRoutineDelegate.addWorkout(workout: workoutCreated)
         self.dismiss(animated: true, completion: nil)
         
     }
@@ -83,10 +84,6 @@ extension CreateWorkoutViewController: UITableViewDataSource, UITableViewDelegat
         cell.textLabel?.text = exercise.exerciseName
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        <#code#>
-//    }
     
 }
 
