@@ -149,12 +149,12 @@
 				4C79BBB523A3F10900885375 /* IntroductionViewController.swift */,
 				4C79BBB723A3F11900885375 /* UserDetailsViewController.swift */,
 				4C65F5FE23AB998100782D66 /* CalendarViewController .swift */,
+				4C071D3723EADC74002FB7FF /* CreateExerciseTableViewController.swift */,
+				4C00EDB323DB18150075A3B2 /* ChooseWorkoutViewController.swift */,
 				4CD3491D23C9A067005E0B69 /* YourWorkoutsViewController.swift */,
 				4CC1F83423C71DB6002AB729 /* CreateWorkoutViewController.swift */,
 				4DF0920923FAC10600AE3ACA /* CustomWorkoutPreviewViewController.swift */,
 				4DF0920B23FAC29B00AE3ACA /* ProfileTableViewController.swift */,
-				4C00EDB323DB18150075A3B2 /* ChooseWorkoutViewController.swift */,
-				4C071D3723EADC74002FB7FF /* CreateExerciseTableViewController.swift */,
 				4DF0920D23FAC3E100AE3ACA /* FriendsTableViewController.swift */,
 			);
 			path = Controller;

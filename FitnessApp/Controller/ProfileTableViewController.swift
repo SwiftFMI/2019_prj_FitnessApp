@@ -11,7 +11,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     override func viewDidLoad() {
             super.viewDidLoad()
             updateUI()
-            
+            setProfileImage()
         }
         
 
@@ -19,8 +19,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         @IBAction func changeProfilePicture(_ sender: UIButton) {
             picker.delegate = self
             picker.sourceType = UIImagePickerController.SourceType.savedPhotosAlbum
-            present(picker, animated: true, completion: nil)
             
+            present(picker, animated: true, completion: nil)
             self.present(picker, animated: true)
         }
         
@@ -31,7 +31,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             }
             dismiss(animated: true, completion: nil)
             uploadPhoto()
-            setProfileImage()
+            
+            
         }
         
         func uploadPhoto() {
@@ -43,11 +44,11 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             let imageReference = Storage.storage().reference().child("images").child(imageName)
             
             imageReference.putData(data, metadata: nil) { (metadata, err) in
-                if let err = err {
+                if err != nil {
                     return
                 }
                 imageReference.downloadURL { (url, err) in
-                    if let err = err {
+                    if err != nil {
                         return
                     }
                     guard let url = url else {
@@ -55,7 +56,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                     }
                     
                     let dataReference = self.db.collection(Constants.CollectionNames.users).document(self.user!)
-                    let documentID = dataReference.documentID as? String
+                    let documentID = dataReference.documentID 
                     let urlString = url.absoluteString
                     
                     let data = [
@@ -73,20 +74,26 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                         }
                         
                     }
-                    
+                    self.setProfileImage()
                 }
             }
         }
         
     func setProfileImage() {
-        guard let imageURLString = UserDefaults.standard.value(forKey: "imageURL") as? String else {
-            return
-        }
-        print(imageURLString)
-            
-        let url = URL(string: imageURLString)
         
-        downloadImage(url: url!)
+        db.collection(Constants.CollectionNames.users).document(user!).getDocument { (document, err) in
+            if let e = err {
+                print(e)
+            } else {
+                let data = document?.data()
+                print(data!["profileImage"]!)
+                let dataObject = data!["profileImage"]! as? [String:Any]
+                print(dataObject!["imageURL"]!)
+                guard let url = URL(string: dataObject!["imageURL"] as! String) else { return }
+                self.downloadImage(url: url)
+                print(url)
+            }
+        }
     }
     
     func getData(from url: URL, completion: @escaping(Data?, URLResponse?, Error?) -> ()) {
@@ -97,7 +104,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         getData(from: url) { (data, response, error) in
             guard let data = data, error == nil else { return }
             print(response?.suggestedFilename ?? url.lastPathComponent)
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.profilePicture.image = UIImage(data: data)
             }
         }

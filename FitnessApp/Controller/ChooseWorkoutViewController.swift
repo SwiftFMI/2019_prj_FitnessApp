@@ -10,30 +10,25 @@ import UIKit
 import Firebase
 import MIBlurPopup
 
-//protocol AddCustomWorkoutDelegate {
-//    func addWorkout(exercises: [Exercise])
-//}
+
+protocol AddCustomWorkoutDelegate {
+    func addCustomWorkout()
+}
 
 class ChooseWorkoutViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MIBlurPopupDelegate {
     
     var workoutChosen : String = ""
-    
     var date : String = WorkoutManager.shared.date
     
+    
     var popupView: UIView = UIView()
-    
     var blurEffectStyle: UIBlurEffect.Style = .dark
-    
-    
     var initialScaleAmmount: CGFloat = 0.5
-    
     var animationDuration: TimeInterval = 0.5
-    
-
     var workouts : [String] = []
     var exercises : [Exercise] = []
     
-    var addExerciseDelegate : AddNewExerciseDelegate?
+    var addCustomWorkoutDelegate : AddCustomWorkoutDelegate?
     
     
     let db = Firestore.firestore()
@@ -89,8 +84,6 @@ class ChooseWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
         
         let chosenWorkout = workouts[indexPath.row]
         getExercisesForChosenWorkout(workout: chosenWorkout)
-        
-        
     }
     
     func getExercisesForChosenWorkout(workout: String) {
@@ -105,9 +98,9 @@ class ChooseWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
                     for doc in snapshot!.documents {
                         if doc.documentID == workout && doc.exists{
                             for data in doc.data() as! [String: [String: Any]] {
-                                if let reps = data.value[Constants.DocumentFields.repetitions] as? String, let sets = data.value[Constants.DocumentFields.sets] as? String, let timeOfCreation = data.value["date"] as? Double, let muscleGroup = data.value[Constants.DocumentFields.muscleGroup] as? String {
+                                if let reps = data.value[Constants.DocumentFields.repetitions] as? String, let sets = data.value[Constants.DocumentFields.sets] as? String, let timeOfCreation = data.value["date"] as? Double, let muscleGroup = data.value[Constants.DocumentFields.muscleGroup] as? String,let done = data.value[Constants.DocumentFields.done] as? Bool {
                                 
-                                    let newExercise = Exercise(exerciseName: data.key, repetitions: reps, muscleGroup: muscleGroup, timeOfCreation: timeOfCreation, sets: sets)
+                                    let newExercise = Exercise(exerciseName: data.key, repetitions: reps, muscleGroup: muscleGroup, timeOfCreation: timeOfCreation, sets: sets, done: done)
                                 self.exercises.append(newExercise)
                                 print(newExercise.exerciseName)
                             }
@@ -119,7 +112,7 @@ class ChooseWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
         
     }
     
-    func writeExerciseInDatabase() {
+    func writeExercisesInDatabase() {
         for exercise in exercises {
             let data = [
                 exercise.exerciseName: [
@@ -128,6 +121,7 @@ class ChooseWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
                     Constants.DocumentFields.repetitions: exercise.repetitions,
                     Constants.DocumentFields.sets: exercise.sets,
                     Constants.DocumentFields.timeOfCreation: exercise.timeOfCreation,
+                    Constants.DocumentFields.done: false
                 ]
             ]; db.collection(Constants.CollectionNames.users).document(user!).collection(Constants.CollectionNames.schedueledWorkouts).document(date).setData(data, merge: true)
         }
@@ -135,10 +129,10 @@ class ChooseWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
     
     @IBAction func addWorkout(_ sender: UIButton) {
         
-        writeExerciseInDatabase()
-        
-//        addExerciseDelegate!.addExercice(date: WorkoutManager.shared.date)
+        writeExercisesInDatabase()
+//        addCustomWorkoutDelegate!.addCustomWorkout()
         self.dismiss(animated: true, completion: nil)
+        
     }
     
     @IBAction func close(_ sender: Any) {

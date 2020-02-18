@@ -47,6 +47,7 @@ struct Constants {
         static let timeOfCreation = "timeOfCreation"
         static let exerciseName = "exerciseName"
         static let date = "date"
+        static let done = "done"
     }
     
     struct ImageCollections {

@@ -46,19 +46,20 @@ class CreateWorkoutViewController: UIViewController {
     
     @IBAction func addExercise(_ sender: UIButton) {
         let date = Date.timeIntervalBetween1970AndReferenceDate
-        if let workoutTitle = workoutTitle.text as? String, let exerciseName = exerciseNameField.text as? String, let sets = setsField.text as? String, let reps = repsField.text as? String, let user = Auth.auth().currentUser {
-            let newExercise = Exercise(exerciseName: exerciseName, repetitions: reps, muscleGroup: muscleGroupChosen, timeOfCreation: Date().timeIntervalSince1970 , sets: sets)
+        muscleGroupChosen = muscleGroups[muscleGroup.selectedRow(inComponent: 0)]
+        if let workoutTitle = workoutTitle.text, let exerciseName = exerciseNameField.text as? String, let sets = setsField.text as? String, let reps = repsField.text as? String, let user = Auth.auth().currentUser {
+            let newExercise = Exercise(exerciseName: exerciseName, repetitions: reps, muscleGroup: muscleGroupChosen, timeOfCreation: Date().timeIntervalSince1970 , sets: sets, done: false)
             exercises.append(newExercise)
             let customWorkoutData : [String: Any] = [
                     exerciseName : [
                         Constants.DocumentFields.sets: sets,
                         Constants.DocumentFields.repetitions : reps,
                         Constants.DocumentFields.date: date,
-                        Constants.DocumentFields.muscleGroup : muscleGroupChosen
+                        Constants.DocumentFields.muscleGroup : muscleGroupChosen,
+                        Constants.DocumentFields.done: false
                     ]
             ]
-            
-            db.collection(Constants.CollectionNames.users).document(user.email!).collection(Constants.CollectionNames.customWorkouts).document(workoutTitle).setData(customWorkoutData, merge: true)
+        db.collection(Constants.CollectionNames.users).document(user.email!).collection(Constants.CollectionNames.customWorkouts).document(workoutTitle).setData(customWorkoutData, merge: true)
             
             tableView.reloadData()
         }

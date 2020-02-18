@@ -102,15 +102,17 @@ extension YourWorkoutsViewController: UITableViewDataSource, UITableViewDelegate
             self.db.collection(Constants.CollectionNames.users).document(user).collection(Constants.CollectionNames.customWorkouts).document(workoutToBeDeleted).delete()
                 
                 WorkoutManager.shared.numberOfWorkouts -= 1
-                self.workouts.removeAll { (workout) -> Bool in
+                WorkoutManager.shared.workouts.removeAll { (workout) -> Bool in
                     return workout == workoutToBeDeleted
                 }
-                    tableView.deleteRows(at: [indexPath], with: .bottom)
-                }
+                tableView.deleteRows(at: [indexPath], with: .bottom)
             }
+        }
         delete.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         return UISwipeActionsConfiguration(actions: [delete])
     }
+    
+   
     
 }
 
