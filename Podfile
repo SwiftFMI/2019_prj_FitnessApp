@@ -16,6 +16,7 @@ pod 'JVFloatLabeledTextField'
 pod 'FSCalendar'
 pod 'IQKeyboardManagerSwift'
 pod 'MIBlurPopup'
+pod 'BEMCheckBox'
 
 
   target 'FitnessAppTests' do

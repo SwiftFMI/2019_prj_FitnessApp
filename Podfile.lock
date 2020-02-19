@@ -1,4 +1,5 @@
 PODS:
+  - BEMCheckBox (1.4.1)
   - BoringSSL-GRPC (0.0.3):
     - BoringSSL-GRPC/Implementation (= 0.0.3)
     - BoringSSL-GRPC/Interface (= 0.0.3)
@@ -138,6 +139,7 @@ PODS:
   - TextFieldFloatingPlaceholder (1.1.3)
 
 DEPENDENCIES:
+  - BEMCheckBox
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Database
@@ -151,6 +153,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - BEMCheckBox
     - BoringSSL-GRPC
     - Firebase
     - FirebaseAnalytics
@@ -180,6 +183,7 @@ SPEC REPOS:
     - TextFieldFloatingPlaceholder
 
 SPEC CHECKSUMS:
+  BEMCheckBox: 5ba6e37ade3d3657b36caecc35c8b75c6c2b1a4e
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   Firebase: bc9cfc7a96c73268656d5aaab453ff1b4b530e0e
   FirebaseAnalytics: 0e3ecff2c5d86070f7d4325e21f1edabfbd558dc
@@ -208,6 +212,6 @@ SPEC CHECKSUMS:
   Protobuf: 20d79da7f20b5928b80043b05080b816e802659e
   TextFieldFloatingPlaceholder: b203efe694d94d86f03bb2de65613ba6c8ba5464
 
-PODFILE CHECKSUM: 7a94793d0f31d4ecdf3a98081c8e8e4443113738
+PODFILE CHECKSUM: 28ec09cbd3be685e15d2f69eeccf6a1f09a06385
 
 COCOAPODS: 1.8.4
