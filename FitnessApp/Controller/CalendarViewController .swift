@@ -11,7 +11,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     let user = Auth.auth().currentUser?.email
     
     
-    
     let db = Firestore.firestore()
     @IBOutlet weak var tableView: UITableView!
     fileprivate weak var calendar : FSCalendar!
@@ -23,6 +22,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         calendar.scope = .month
+        setProfile()
         let formattedDate = self.dateFormater.string(from: Date())
         navigationController?.setNavigationBarHidden(true, animated: true)
         currentDate = formattedDate
@@ -38,6 +38,17 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
         WorkoutManager.shared.exercises.removeAll()
+    }
+    
+    func setProfile() {
+        db.collection(Constants.CollectionNames.users).document(user!).getDocument { (doc, error) in
+            if let e = error {
+                print(e)
+            } else {
+                let username = doc?.data()!["username"] as? String
+                userDefault.set(username, forKey: Constants.UserDef.username)
+            }
+        }
     }
     
     fileprivate var dateFormater : DateFormatter {

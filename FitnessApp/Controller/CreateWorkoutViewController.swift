@@ -19,6 +19,7 @@ class CreateWorkoutViewController: UIViewController {
     @IBOutlet weak var repsLabel: UILabel!
     @IBOutlet weak var setsLabel: UILabel!
     
+    
     let db = Firestore.firestore()
     let muscleGroups : [String] = ["Shoulders", "Biceps",
     "Abs","Tighs", "Calves", "Back", "Chest"]

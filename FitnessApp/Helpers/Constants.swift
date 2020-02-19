@@ -23,6 +23,7 @@ struct Constants {
         static let createRoutine = "CreateRoutine"
         static let workoutPreview = "workoutPreview"
         static let chooseWorkout = "chooseWorkout"
+        static let login = "login"
     }
     
     
@@ -72,6 +73,7 @@ struct Constants {
     struct UserDef {
         static let email = "email"
         static let password = "password"
+        static let username = "username"
     }
     
     struct SwipeAction {

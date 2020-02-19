@@ -6,17 +6,32 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     let picker = UIImagePickerController()
     let db = Firestore.firestore()
     let user = Auth.auth().currentUser?.email
+    let userDefaults = UserDefaults.standard
+    
+    @IBOutlet weak var usernameLabel: UILabel!
+    
     
     
     override func viewDidLoad() {
             super.viewDidLoad()
             updateUI()
+            setUsername()
             setProfileImage()
+    }
+    
+    func setUsername() {
+        db.collection(Constants.CollectionNames.users).document(user!).getDocument { (doc, error) in
+            if let e = error {
+                print(e)
+            } else {
+                self.usernameLabel.text = doc?.data()!["username"] as? String
+            }
         }
+    }
         
 
         
-        @IBAction func changeProfilePicture(_ sender: UIButton) {
+    @IBAction func changeProfilePicture(_ sender: UIButton) {
             picker.delegate = self
             picker.sourceType = UIImagePickerController.SourceType.savedPhotosAlbum
             
@@ -85,13 +100,15 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             if let e = err {
                 print(e)
             } else {
-                let data = document?.data()
-                print(data!["profileImage"]!)
-                let dataObject = data!["profileImage"]! as? [String:Any]
-                print(dataObject!["imageURL"]!)
-                guard let url = URL(string: dataObject!["imageURL"] as! String) else { return }
-                self.downloadImage(url: url)
-                print(url)
+                
+                if let data = document?.data() {
+                    if let dataObject = data["profileImage"] as? [String:Any] {
+                        guard let url = URL(string: dataObject["imageURL"] as! String) else { return }
+                        self.downloadImage(url: url)
+                        print(url)
+                    }
+                
+            } 
             }
         }
     }
@@ -117,7 +134,13 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         
         
         @IBAction func logOut(_ sender: UIButton) {
-            
+            try! Auth.auth().signOut()
+            if let storyboard = self.storyboard {
+                let vc = storyboard.instantiateViewController(identifier: Constants.ControllersIdentifiers.login) as! LoginViewController
+                userDefaults.removeObject(forKey: Constants.UserDef.email)
+                userDefaults.removeObject(forKey: Constants.UserDef.password)
+                navigationController?.setViewControllers([vc], animated: true)
+            }
         }
     
         override func numberOfSections(in tableView: UITableView) -> Int {

@@ -22,6 +22,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateTextFields()
+        errorLabel.text = ""
 //        emailTextField.text = Constants.Profile.email
 //        passwordTextField.text = Constants.Profile.password
     }

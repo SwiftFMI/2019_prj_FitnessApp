@@ -15,6 +15,7 @@ import TextFieldFloatingPlaceholder
 class IntroductionViewController: UIViewController{
     @IBOutlet var usernameTextField: TextFieldFloatingPlaceholder!
     var db = Firestore.firestore()
+    let userDefaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
         usernameTextField.validationTrueLineColor = UIColor.black.withAlphaComponent(1)
@@ -31,6 +32,7 @@ class IntroductionViewController: UIViewController{
             db.collection(Constants.CollectionNames.users).document(user.email!).setData([
                 Constants.DocumentFields.username: username
                 ], merge: true)
+            userDefaults.set(username, forKey: "username")
         }
 
     /*
