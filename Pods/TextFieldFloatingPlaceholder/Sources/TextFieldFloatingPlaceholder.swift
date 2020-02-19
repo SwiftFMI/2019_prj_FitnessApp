@@ -240,7 +240,7 @@ open class TextFieldFloatingPlaceholder: UITextField {
         picker.dataSource = self
         inputView = picker
         DispatchQueue.main.async {
-            picker.selectRow(values.index(of: self.text ?? "") ?? 0, inComponent: 0, animated: false)
+            picker.selectRow(values.firstIndex(of: self.text ?? "") ?? 0, inComponent: 0, animated: false)
         }
     }
 }

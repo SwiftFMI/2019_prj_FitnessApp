@@ -9,22 +9,20 @@
 import UIKit
 import Firebase
 protocol addWorkoutRoutineDelegate {
-    func addWorkout()
+    func addWorkout(workout: String)
 }
 
 class CreateWorkoutViewController: UIViewController {
-    
-    @IBOutlet weak var exerciseImage: UIImageView!
-    @IBOutlet weak var exerciseName: UILabel!
-    @IBOutlet weak var repsLabel: UILabel!
-    @IBOutlet weak var setsLabel: UILabel!
-    
+
     let db = Firestore.firestore()
     let muscleGroups : [String] = ["Shoulders", "Biceps",
     "Abs","Tighs", "Calves", "Back", "Chest"]
     
     var muscleGroupChosen: String = ""
     var exercises : [Exercise] = []
+    
+    
+    
     @IBOutlet weak var muscleGroup: UIPickerView!
     
     @IBOutlet weak var workoutTitle: UITextField!
@@ -32,6 +30,8 @@ class CreateWorkoutViewController: UIViewController {
     @IBOutlet weak var setsField: UITextField!
     @IBOutlet weak var repsField: UITextField!
     @IBOutlet weak var tableView: UITableView!
+    
+    var textFields : [UITextField] = []
     
     var addWorkoutRoutineDelegate : addWorkoutRoutineDelegate!
     
@@ -42,30 +42,38 @@ class CreateWorkoutViewController: UIViewController {
         muscleGroup.dataSource = self
         muscleGroup.delegate = self
         exercises.removeAll()
+        self.textFields = [workoutTitle, exerciseNameField,setsField,repsField]
     }
     
     @IBAction func addExercise(_ sender: UIButton) {
+        
+        
+        
         let date = Date.timeIntervalBetween1970AndReferenceDate
-        if let workoutTitle = workoutTitle.text as? String, let exerciseName = exerciseNameField.text as? String, let sets = setsField.text as? String, let reps = repsField.text as? String, let user = Auth.auth().currentUser {
-            let newExercise = Exercise(exerciseName: exerciseName, repetitions: reps, muscleGroup: muscleGroupChosen, timeOfCreation: Date().timeIntervalSince1970 , sets: sets)
+        muscleGroupChosen = muscleGroups[muscleGroup.selectedRow(inComponent: 0)]
+        
+        
+        if let workoutTitle = workoutTitle.text, let exerciseName = exerciseNameField.text as? String, let sets = setsField.text as? String, let reps = repsField.text as? String, let user = Auth.auth().currentUser {
+            let newExercise = Exercise(exerciseName: exerciseName, repetitions: reps, muscleGroup: muscleGroupChosen, timeOfCreation: Date().timeIntervalSince1970 , sets: sets, done: false)
             exercises.append(newExercise)
             let customWorkoutData : [String: Any] = [
                     exerciseName : [
                         Constants.DocumentFields.sets: sets,
                         Constants.DocumentFields.repetitions : reps,
                         Constants.DocumentFields.date: date,
-                        Constants.DocumentFields.muscleGroup : muscleGroupChosen
+                        Constants.DocumentFields.muscleGroup : muscleGroupChosen,
+                        Constants.DocumentFields.done: false
                     ]
             ]
-            
-            db.collection(Constants.CollectionNames.users).document(user.email!).collection(Constants.CollectionNames.customWorkouts).document(workoutTitle).setData(customWorkoutData, merge: true)
+        db.collection(Constants.CollectionNames.users).document(user.email!).collection(Constants.CollectionNames.customWorkouts).document(workoutTitle).setData(customWorkoutData, merge: true)
             
             tableView.reloadData()
         }
     }
     
     @IBAction func generateWorkout(_ sender: Any) {
-        addWorkoutRoutineDelegate.addWorkout()
+        let workoutCreated = workoutTitle.text!
+        addWorkoutRoutineDelegate.addWorkout(workout: workoutCreated)
         self.dismiss(animated: true, completion: nil)
         
     }
@@ -83,10 +91,6 @@ extension CreateWorkoutViewController: UITableViewDataSource, UITableViewDelegat
         cell.textLabel?.text = exercise.exerciseName
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        <#code#>
-//    }
     
 }
 

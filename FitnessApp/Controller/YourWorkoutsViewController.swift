@@ -16,32 +16,34 @@ class YourWorkoutsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        getWorkouts()
-        tableView.reloadData()
+        displayWorkouts()
         tableView.dataSource = self
         tableView.delegate = self
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
-        tableView.reloadData()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            print("WORKOUTS: \(WorkoutManager.shared.workouts.count)")
-        }
-        
     }
     
     
     @IBAction func createRoutine(_ sender: Any) {
         let destinationVC = storyboard?.instantiateViewController(identifier: Constants.ControllersIdentifiers.createRoutine) as! CreateWorkoutViewController
         destinationVC.addWorkoutRoutineDelegate = self
-        WorkoutManager.shared.workouts.removeAll()
         present(destinationVC, animated: true, completion: nil)
     }
     
+    func displayWorkouts() {
+        WorkoutManager.shared.workouts.removeAll()
+        getWorkouts()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            WorkoutManager.shared.numberOfWorkouts = WorkoutManager.shared.workouts.count
+            self.tableView.reloadData()
+        }
+    }
+    
     func getWorkouts() {
+        WorkoutManager.shared.workouts.removeAll()
         if let user = Auth.auth().currentUser?.email
         {
             let workoutRef = db.collection(Constants.CollectionNames.users).document(user).collection(Constants.CollectionNames.customWorkouts)
@@ -51,16 +53,12 @@ class YourWorkoutsViewController: UIViewController {
             } else {
                 for doc in snapshot!.documents {
                     WorkoutManager.shared.workouts.append(doc.documentID)
+                    WorkoutManager.shared.numberOfWorkouts += 1
                     print(doc.documentID)
-                    print(WorkoutManager.shared.workouts.count)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        WorkoutManager.shared.numberOfWorkouts += 1
-                    }
                 }
             }
         }
      }
-        workouts = WorkoutManager.shared.workouts
     }
     
 }
@@ -107,24 +105,24 @@ extension YourWorkoutsViewController: UITableViewDataSource, UITableViewDelegate
                 WorkoutManager.shared.workouts.removeAll { (workout) -> Bool in
                     return workout == workoutToBeDeleted
                 }
-                    tableView.deleteRows(at: [indexPath], with: .bottom)
-                }
+                tableView.deleteRows(at: [indexPath], with: .bottom)
             }
+        }
         delete.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         return UISwipeActionsConfiguration(actions: [delete])
     }
     
+   
+    
 }
 
 extension YourWorkoutsViewController: addWorkoutRoutineDelegate {
-    func addWorkout() {
-        print("add workout delegate")
-        WorkoutManager.shared.workouts.removeAll()
-        self.getWorkouts()
-        WorkoutManager.shared.numberOfWorkouts += 1
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            
-            self.tableView.reloadData()
+    func addWorkout(workout: String) {
+        
+        tableView.reloadData()
+        //        WorkoutManager.shared.exercises.removeAll()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.displayWorkouts()
         }
     }
 }

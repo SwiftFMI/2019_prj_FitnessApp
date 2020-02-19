@@ -29,8 +29,8 @@ class CustomWorkoutPreviewViewController: UIViewController {
                     for doc in snapshot!.documents {
                         if doc.documentID == self.workout {
                             for data in doc.data() as! [String: [String: Any]] {
-                                if let repetitions = data.value["repetitions"] as? String, let sets = data.value["sets"] as? String, let muscleGroup = data.value["muscle_group"] as? String, let timeOfCreation = data.value["timeOfCreation"] as? Double {
-                                    let newExercise = Exercise(exerciseName: data.key, repetitions: repetitions, muscleGroup: muscleGroup, timeOfCreation: timeOfCreation, sets: sets)
+                                if let repetitions = data.value["repetitions"] as? String, let sets = data.value["sets"] as? String, let muscleGroup = data.value["muscle_group"] as? String, let timeOfCreation = data.value["timeOfCreation"] as? Double, let done = data.value[Constants.DocumentFields.done] as? Bool {
+                                    let newExercise = Exercise(exerciseName: data.key, repetitions: repetitions, muscleGroup: muscleGroup, timeOfCreation: timeOfCreation, sets: sets, done: done)
                                     self.exercises.append(newExercise)
                             }
                         }

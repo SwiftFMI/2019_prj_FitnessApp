@@ -11,7 +11,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     let user = Auth.auth().currentUser?.email
     
     
-    
     let db = Firestore.firestore()
     @IBOutlet weak var tableView: UITableView!
     fileprivate weak var calendar : FSCalendar!
@@ -24,6 +23,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         calendar.scope = .month
+        setProfile()
         let formattedDate = self.dateFormater.string(from: Date())
         navigationController?.setNavigationBarHidden(true, animated: true)
         currentDate = formattedDate
@@ -34,12 +34,22 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        print("View did appear")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
         WorkoutManager.shared.exercises.removeAll()
+    }
+    
+    func setProfile() {
+        db.collection(Constants.CollectionNames.users).document(user!).getDocument { (doc, error) in
+            if let e = error {
+                print(e)
+            } else {
+                let username = doc?.data()!["username"] as? String
+                userDefault.set(username, forKey: Constants.UserDef.username)
+            }
+        }
     }
     
     fileprivate var dateFormater : DateFormatter {
@@ -60,27 +70,23 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         var numberOfEvents = 0
-        let currentUser = Auth.auth().currentUser?.email
+
         let formattedDate = self.dateFormater.string(from: date)
         let scheduledWorkoutDocument = db.collection(Constants.CollectionNames.users).document(user!).collection(Constants.CollectionNames.schedueledWorkouts).document(formattedDate)
         scheduledWorkoutDocument.getDocument { (document, error) in
             if let doc = document, doc.exists {
-                print("yeah")
                 numberOfEvents = 1
             }
         }
-        
         return numberOfEvents
     }
     
     func displayExercises(date: String) {
         WorkoutManager.shared.exercises.removeAll()
-        print("did select date: \(date)")
         getExercises(date: date)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             WorkoutManager.shared.numberOfExercises = WorkoutManager.shared.exercises.count
-            print(WorkoutManager.shared.numberOfExercises)
             self.tableView.reloadData()
         }
     }
@@ -188,8 +194,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         present(destinationVC, animated: true, completion: nil)
         WorkoutManager.shared.date = currentDate
         destinationVC.date = WorkoutManager.shared.date
-        print("current date: \(currentDate)")
-        print("vc date \(destinationVC.date)")
     }
     
     func getExercises(date: String) {
@@ -211,29 +215,27 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                             if doc.documentID == date && doc.exists{
                                 var newExercise : Exercise
                                 for data in doc.data() as! [String: [String:Any]]{
-                                    if let repetitions = data.value[Constants.DocumentFields.repetitions] as? String, let muscleGroup = data.value[Constants.DocumentFields.muscleGroup] as? String, let sets = data.value[Constants.DocumentFields.sets] as? String, let timeOfCreation = data.value[Constants.DocumentFields.timeOfCreation] as? Double {
-                                        newExercise = Exercise(exerciseName: data.key, repetitions: repetitions, muscleGroup: muscleGroup, timeOfCreation: timeOfCreation, sets: sets)
-                                            print("new Exercise: \(newExercise.exerciseName), repetitions: \(newExercise.repetitions), muscle group: \(newExercise.muscleGroup)")
+                                    if let repetitions = data.value[Constants.DocumentFields.repetitions] as? String, let muscleGroup = data.value[Constants.DocumentFields.muscleGroup] as? String, let sets = data.value[Constants.DocumentFields.sets] as? String, let timeOfCreation = data.value[Constants.DocumentFields.timeOfCreation] as? Double, let done = data.value[Constants.DocumentFields.done] as? Bool {
+                                        newExercise = Exercise(exerciseName: data.key, repetitions: repetitions, muscleGroup: muscleGroup, timeOfCreation: timeOfCreation, sets: sets, done: done)
                                             WorkoutManager.shared.exercises.append(newExercise)
-                                                }
-                                            }
                                         }
-                                    }
+                                }
+                            }
+                    }
+                    
                     WorkoutManager.shared.exercises.sort { (ex1: Exercise, ex2: Exercise) -> Bool in
                         ex1.timeOfCreation < ex2.timeOfCreation
                     }
-                            }
-                        }
                     }
-            }
+                    }
+        }
+}
 
     @IBAction func choseWorkout(_ sender: UIButton) {
         let destinationVC = storyboard?.instantiateViewController(identifier: Constants.ControllersIdentifiers.chooseWorkout) as! ChooseWorkoutViewController
-        destinationVC.addExerciseDelegate = self
+        destinationVC.addCustomWorkoutDelegate = self
         destinationVC.date = currentDate
-        
     }
-    
     
     
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -267,7 +269,11 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
             default:
                 cell.muscleGroupImage.image = #imageLiteral(resourceName: "dumbbell")
             }
-            
+            if exercise.done {
+                cell.exerciseName.textColor = #colorLiteral(red: 0.4078, green: 0.8471, blue: 0.6118, alpha: 1)
+            } else {
+                cell.exerciseName.textColor = #colorLiteral(red: 0.2235, green: 0.2471, blue: 0.2275, alpha: 1)
+            }
             cell.background.layer.cornerRadius = 6
             cell.background.layer.shadowColor = UIColor.black.cgColor
             cell.background.layer.shadowOpacity = 0.4
@@ -293,10 +299,22 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
             
-        let done = UIContextualAction(style: .normal, title: Constants.SwipeAction.done) { (action, view, nil) in
+        let done = UIContextualAction(style: .normal, title: Constants.SwipeAction.done) { (action, view, complete) in
+            if let exerciseDone = WorkoutManager.shared.exercises[indexPath.row].exerciseName as? String {              self.db.collection(Constants.CollectionNames.users).document(self.user!).collection(Constants.CollectionNames.schedueledWorkouts).document(self.currentDate).setData([
+                    exerciseDone : [
+                        "done" : true
+                    ]
+                    ], merge: true)
+            }
+            let cell = tableView.cellForRow(at: indexPath) as! CalendarExerciseTableViewCell
             
+            UIView.transition(with: cell.exerciseName, duration: 0.25, options: .transitionCrossDissolve, animations: {
+                cell.exerciseName.textColor = #colorLiteral(red: 0.4078, green: 0.8471, blue: 0.6118, alpha: 1)
+            },
+            completion: nil)
+            complete(true)
         }
-        done.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        done.backgroundColor = #colorLiteral(red: 0.4078, green: 0.8471, blue: 0.6118, alpha: 1)
         return UISwipeActionsConfiguration(actions: [done])
     }
     
@@ -316,10 +334,10 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                     tableView.deleteRows(at: [indexPath], with: .bottom)
                 }
             
-            }
+        }
         
-        
-        delete.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        dismiss(animated: true, completion: nil)
+        delete.backgroundColor = #colorLiteral(red: 0.9569, green: 0.3647, blue: 0.3647, alpha: 1)
         return UISwipeActionsConfiguration(actions: [delete])
     }
     
@@ -354,8 +372,18 @@ extension CalendarViewController: AddNewExerciseDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.displayExercises(date: WorkoutManager.shared.date)
         }
-        
     }
+    
+}
+
+extension CalendarViewController : AddCustomWorkoutDelegate {
+    func addCustomWorkout() {
+        tableView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.displayExercises(date: WorkoutManager.shared.date)
+        }
+    }
+
 }
 
 

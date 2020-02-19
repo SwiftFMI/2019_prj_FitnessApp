@@ -14,6 +14,7 @@ struct Exercise {
     var muscleGroup : String
     var timeOfCreation: Double
     var sets : String
+    var done : Bool
 }
 
 struct Workout {
@@ -28,7 +29,7 @@ class WorkoutManager {
     var numberOfExercises : Int = 0
     var numberOfWorkouts : Int = 0
     var date : String = ""
-    var newExercise : Exercise = Exercise(exerciseName: "", repetitions: "", muscleGroup: "", timeOfCreation: 0.0, sets: "")
+    var newExercise : Exercise = Exercise(exerciseName: "", repetitions: "", muscleGroup: "", timeOfCreation: 0.0, sets: "", done : false)
     
     let muscleGroups : [String] = ["Shoulders", "Biceps",
     "Abs","Tighs", "Calves", "Back", "Chest"]

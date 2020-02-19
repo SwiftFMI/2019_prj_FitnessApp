@@ -6,21 +6,36 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     let picker = UIImagePickerController()
     let db = Firestore.firestore()
     let user = Auth.auth().currentUser?.email
+    let userDefaults = UserDefaults.standard
+    
+    @IBOutlet weak var usernameLabel: UILabel!
+    
     
     
     override func viewDidLoad() {
             super.viewDidLoad()
             updateUI()
-            
+            setUsername()
+            setProfileImage()
+    }
+    
+    func setUsername() {
+        db.collection(Constants.CollectionNames.users).document(user!).getDocument { (doc, error) in
+            if let e = error {
+                print(e)
+            } else {
+                self.usernameLabel.text = doc?.data()!["username"] as? String
+            }
         }
+    }
         
 
         
-        @IBAction func changeProfilePicture(_ sender: UIButton) {
+    @IBAction func changeProfilePicture(_ sender: UIButton) {
             picker.delegate = self
             picker.sourceType = UIImagePickerController.SourceType.savedPhotosAlbum
-            present(picker, animated: true, completion: nil)
             
+            present(picker, animated: true, completion: nil)
             self.present(picker, animated: true)
         }
         
@@ -31,7 +46,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             }
             dismiss(animated: true, completion: nil)
             uploadPhoto()
-            setProfileImage()
+            
+            
         }
         
         func uploadPhoto() {
@@ -43,11 +59,11 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             let imageReference = Storage.storage().reference().child("images").child(imageName)
             
             imageReference.putData(data, metadata: nil) { (metadata, err) in
-                if let err = err {
+                if err != nil {
                     return
                 }
                 imageReference.downloadURL { (url, err) in
-                    if let err = err {
+                    if err != nil {
                         return
                     }
                     guard let url = url else {
@@ -55,7 +71,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                     }
                     
                     let dataReference = self.db.collection(Constants.CollectionNames.users).document(self.user!)
-                    let documentID = dataReference.documentID as? String
+                    let documentID = dataReference.documentID 
                     let urlString = url.absoluteString
                     
                     let data = [
@@ -73,20 +89,27 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                         }
                         
                     }
-                    
+                    self.setProfileImage()
                 }
             }
         }
         
     func setProfileImage() {
-        guard let imageURLString = UserDefaults.standard.value(forKey: "imageURL") as? String else {
-            return
-        }
-        print(imageURLString)
-            
-        let url = URL(string: imageURLString)
+            db.collection(Constants.CollectionNames.users).document(user!).getDocument { (document, err) in
+                if let e = err {
+                    print(e)
+                } else {
+                    
+                    if let data = document?.data() {
+                        if let dataObject = data["profileImage"] as? [String:Any] {
+                            guard let url = URL(string: dataObject["imageURL"] as! String) else { return }
+                            self.downloadImage(url: url)
+                            print(url)
+                        }
+                }
+                }
+            }
         
-        downloadImage(url: url!)
     }
     
     func getData(from url: URL, completion: @escaping(Data?, URLResponse?, Error?) -> ()) {
@@ -97,7 +120,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         getData(from: url) { (data, response, error) in
             guard let data = data, error == nil else { return }
             print(response?.suggestedFilename ?? url.lastPathComponent)
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.profilePicture.image = UIImage(data: data)
             }
         }
@@ -110,7 +133,13 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         
         
         @IBAction func logOut(_ sender: UIButton) {
-            
+            try! Auth.auth().signOut()
+            if let storyboard = self.storyboard {
+                let vc = storyboard.instantiateViewController(identifier: Constants.ControllersIdentifiers.login) as! LoginViewController
+                userDefaults.removeObject(forKey: Constants.UserDef.email)
+                userDefaults.removeObject(forKey: Constants.UserDef.password)
+                navigationController?.setViewControllers([vc], animated: true)
+            }
         }
     
         override func numberOfSections(in tableView: UITableView) -> Int {

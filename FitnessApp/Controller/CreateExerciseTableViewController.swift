@@ -48,8 +48,6 @@ class CreateExerciseTableViewController: UITableViewController {
     }
     
        @IBAction func addExercise(_ sender: UIButton) {
-        
-        print("date: \(date)")
         let allHaveText = textFields.allSatisfy { $0.text?.isEmpty == false }
         if allHaveText {
             let muscleGroupChosen = muscleGroups[muscleGroup.selectedRow(inComponent: 0)]
@@ -60,10 +58,10 @@ class CreateExerciseTableViewController: UITableViewController {
                                     Constants.DocumentFields.repetitions: repetitions,
                                     Constants.DocumentFields.muscleGroup: muscleGroupChosen,
                                     Constants.DocumentFields.timeOfCreation: Date().timeIntervalSince1970,
-                                    Constants.DocumentFields.sets: sets
+                                    Constants.DocumentFields.sets: sets,
+                                    "done": false
                                 ]
                     ]
-                    let newExercise = Exercise(exerciseName: exercise, repetitions: repetitions, muscleGroup: muscleGroupChosen, timeOfCreation: Date().timeIntervalSince1970, sets: sets)
                     WorkoutManager.shared.date = date
                     db.collection(Constants.CollectionNames.users).document(user.email!).collection(Constants.CollectionNames.schedueledWorkouts).document(date).setData(workoutData, merge: true)
                     addExerciseDelegate!.addExercice(date: date)
