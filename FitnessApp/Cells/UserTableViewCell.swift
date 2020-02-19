@@ -7,14 +7,17 @@
 //
 
 import UIKit
-
+import Firebase
+import FirebaseFirestore
 class UserTableViewCell: UITableViewCell {
     
     
     
     @IBOutlet weak var profileImage: UIImageView!
-    
+    let db = Firestore.firestore()
     @IBOutlet weak var profileLabel: UILabel!
+    
+    let currentUser = Auth.auth().currentUser?.email!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -25,5 +28,11 @@ class UserTableViewCell: UITableViewCell {
     }
     
     
-
+    @IBAction func addFriend(_ sender: UIButton) {
+        let user = profileLabel.text!
+    db.collection(Constants.CollectionNames.users).document(currentUser!).collection(Constants.CollectionNames.friends).document(user).setData(["name": user])
+    }
+    
+    
+    
 }

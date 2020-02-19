@@ -15,7 +15,7 @@ protocol AddCustomWorkoutDelegate {
     func addCustomWorkout()
 }
 
-class ChooseWorkoutViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MIBlurPopupDelegate {
+class ChooseWorkoutViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MIBlurPopupDelegate{
     
     var workoutChosen : String = ""
     var date : String = WorkoutManager.shared.date

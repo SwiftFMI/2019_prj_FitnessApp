@@ -24,6 +24,7 @@ struct Constants {
         static let workoutPreview = "workoutPreview"
         static let chooseWorkout = "chooseWorkout"
         static let login = "login"
+        static let yourFriends = "yourFriends"
     }
     
     
@@ -31,6 +32,7 @@ struct Constants {
         static let users = "users"
         static let schedueledWorkouts = "Scheduled workouts"
         static let customWorkouts = "Custom Workouts"
+        static let friends = "friends"
         
     }
     
@@ -74,6 +76,7 @@ struct Constants {
         static let email = "email"
         static let password = "password"
         static let username = "username"
+        static let profileImage = "profileImage"
     }
     
     struct SwipeAction {

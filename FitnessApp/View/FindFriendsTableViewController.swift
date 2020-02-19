@@ -7,10 +7,9 @@
 
 import UIKit
 import Firebase
-import FirebaseDatabase
 import FirebaseFirestore
 
-class FriendsTableViewController: UITableViewController, UISearchResultsUpdating {
+class FindFriendsTableViewController: UITableViewController, UISearchResultsUpdating {
     
     @IBOutlet var findUsersTableView: UITableView!
     
@@ -19,6 +18,7 @@ class FriendsTableViewController: UITableViewController, UISearchResultsUpdating
     
     var usersArray : [String] = []
     var filteredUsers : [String] = []
+    var friendsArray : [String] = []
     
     var databaseRef=Database.database().reference()
     let user = Auth.auth().currentUser?.email
@@ -27,8 +27,23 @@ class FriendsTableViewController: UITableViewController, UISearchResultsUpdating
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearch()
+        extractAllFriends()
         getAllUsers()
         tableView.reloadData()
+    }
+    
+    func extractAllFriends() {
+        let friendsCollectionReference = db.collection(Constants.CollectionNames.users).document(user!).collection(Constants.CollectionNames.friends)
+        
+        friendsCollectionReference.getDocuments(completion: { (snapshot, error) in
+            if let e = error {
+                print(e)
+            } else {
+                for doc in snapshot!.documents{
+                    self.friendsArray.append(doc.documentID)
+                }
+            }
+        })
     }
     
         
@@ -47,7 +62,9 @@ class FriendsTableViewController: UITableViewController, UISearchResultsUpdating
                 print(e)
             } else {
                 for doc in snapshot!.documents  {
-                    self.usersArray.append(doc.documentID)
+                    if(!self.friendsArray.contains(doc.documentID)) {
+                        self.usersArray.append(doc.documentID)
+                    }
                 }
             }
         }
@@ -108,14 +125,19 @@ class FriendsTableViewController: UITableViewController, UISearchResultsUpdating
     
     func filterContent(searchText:String)
     {
+        
+        
         self.filteredUsers = self.usersArray.filter{ user in
  
             let username = user
 
-            return(username.lowercased().contains(searchText.lowercased()))
+            return(username.lowercased().contains(searchText.lowercased()) && !friendsArray.contains(username) )
 
         }
         tableView.reloadData()
     }
-        
+    
+    //MARK: - add Friend
+
+    
 }

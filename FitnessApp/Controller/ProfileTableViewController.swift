@@ -95,22 +95,21 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         }
         
     func setProfileImage() {
-        
-        db.collection(Constants.CollectionNames.users).document(user!).getDocument { (document, err) in
-            if let e = err {
-                print(e)
-            } else {
-                
-                if let data = document?.data() {
-                    if let dataObject = data["profileImage"] as? [String:Any] {
-                        guard let url = URL(string: dataObject["imageURL"] as! String) else { return }
-                        self.downloadImage(url: url)
-                        print(url)
-                    }
-                
-            } 
+            db.collection(Constants.CollectionNames.users).document(user!).getDocument { (document, err) in
+                if let e = err {
+                    print(e)
+                } else {
+                    
+                    if let data = document?.data() {
+                        if let dataObject = data["profileImage"] as? [String:Any] {
+                            guard let url = URL(string: dataObject["imageURL"] as! String) else { return }
+                            self.downloadImage(url: url)
+                            print(url)
+                        }
+                }
+                }
             }
-        }
+        
     }
     
     func getData(from url: URL, completion: @escaping(Data?, URLResponse?, Error?) -> ()) {
