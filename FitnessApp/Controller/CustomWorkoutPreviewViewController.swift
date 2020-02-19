@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import FirebaseFirestore
 
 class CustomWorkoutPreviewViewController: UIViewController {
     var exercises : [Exercise] = []

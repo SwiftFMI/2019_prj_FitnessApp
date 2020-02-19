@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import TextFieldFloatingPlaceholder
+import FirebaseFirestore
 
 class UserDetailsViewController: UIViewController {
     let db = Firestore.firestore()

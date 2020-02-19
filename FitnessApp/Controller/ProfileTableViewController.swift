@@ -1,6 +1,8 @@
 import UIKit
 import Firebase
 import FirebaseStorage
+import FirebaseFirestore
+
 class ProfileTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var profilePicture: UIImageView!
     let picker = UIImagePickerController()

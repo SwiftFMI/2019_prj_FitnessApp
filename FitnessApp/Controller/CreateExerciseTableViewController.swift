@@ -6,6 +6,7 @@
 //  Copyright © 2020 Mitko. All rights reserved.
 //
 
+import FirebaseFirestore
 import UIKit
 import Firebase
 

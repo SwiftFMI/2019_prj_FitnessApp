@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import FirebaseFirestore
+
 protocol addWorkoutRoutineDelegate {
     func addWorkout(workout: String)
 }

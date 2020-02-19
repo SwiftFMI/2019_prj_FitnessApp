@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseStorage
+import FirebaseFirestore
 
 class ProgressGalleryViewController: UIViewController {
     

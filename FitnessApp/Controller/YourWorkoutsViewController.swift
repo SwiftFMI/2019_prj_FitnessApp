@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseFirestore
 
 class YourWorkoutsViewController: UIViewController {
     var workouts : [String] = []
