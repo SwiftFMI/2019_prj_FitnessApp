@@ -71,7 +71,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         var numberOfEvents = 0
-
+        
         let formattedDate = self.dateFormater.string(from: date)
         let scheduledWorkoutDocument = db.collection(Constants.CollectionNames.users).document(user!).collection(Constants.CollectionNames.schedueledWorkouts).document(formattedDate)
         scheduledWorkoutDocument.getDocument { (document, error) in
@@ -111,63 +111,63 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func uploadPhoto(image: UIImage) {
         guard let data = image.jpegData(compressionQuality: 1.0) else {
-                  return
-              }
-              
-              let imageName = UUID().uuidString
-              let imageReference = Storage.storage().reference().child("images").child(imageName)
-              
-              imageReference.putData(data, metadata: nil) { (metadata, err) in
-                  if err != nil {
-                      return
-                  }
-                  imageReference.downloadURL { (url, err) in
-                      if err != nil {
-                          return
-                      }
-                      guard let url = url else {
-                          return
-                      }
-                      
-                      let dataReference = self.db.collection(Constants.CollectionNames.users).document(self.user!)
-                      let documentID = dataReference.documentID
-                      let urlString = url.absoluteString
-                      
-                      let data = [
-                          "progressImages" : [[
-                              "imageUid": documentID,
-                              "imageURL": urlString
-                          ]]
-                          
-                      ]
-                      dataReference.setData(data, merge: true) { (err) in
-                          if let err = err {
-                              print(err)
-                          } else {
-                              UserDefaults.standard.set(documentID, forKey: "imageURL")
-                          }
-                          
-                      }
-                  }
-              }
-          }
+            return
+        }
+        
+        let imageName = UUID().uuidString
+        let imageReference = Storage.storage().reference().child("images").child(imageName)
+        
+        imageReference.putData(data, metadata: nil) { (metadata, err) in
+            if err != nil {
+                return
+            }
+            imageReference.downloadURL { (url, err) in
+                if err != nil {
+                    return
+                }
+                guard let url = url else {
+                    return
+                }
+                
+                let dataReference = self.db.collection(Constants.CollectionNames.users).document(self.user!)
+                let documentID = dataReference.documentID
+                let urlString = url.absoluteString
+                
+                let data = [
+                    "progressImages" : [[
+                        "imageUid": documentID,
+                        "imageURL": urlString
+                        ]]
+                    
+                ]
+                dataReference.setData(data, merge: true) { (err) in
+                    if let err = err {
+                        print(err)
+                    } else {
+                        UserDefaults.standard.set(documentID, forKey: "imageURL")
+                    }
+                    
+                }
+            }
+        }
+    }
     
     
     func addImageToProgressArray() {
-            db.collection(Constants.CollectionNames.users).document(user!).getDocument { (document, err) in
-                if let e = err {
-                    print(e)
-                } else {
-                    
-                    if let data = document?.data() {
-                        if let dataObject = data["progressImages"] as? [String:Any] {
-                            guard let url = URL(string: dataObject["imageURL"] as! String) else { return }
-                            self.downloadImage(url: url)
-                            print(url)
-                        }
-                }
+        db.collection(Constants.CollectionNames.users).document(user!).getDocument { (document, err) in
+            if let e = err {
+                print(e)
+            } else {
+                
+                if let data = document?.data() {
+                    if let dataObject = data["progressImages"] as? [String:Any] {
+                        guard let url = URL(string: dataObject["imageURL"] as! String) else { return }
+                        self.downloadImage(url: url)
+                        print(url)
+                    }
                 }
             }
+        }
         
     }
     
@@ -176,15 +176,15 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func downloadImage(url: URL){
-           getData(from: url) { (data, response, error) in
-               guard let data = data, error == nil else { return }
-               print(response?.suggestedFilename ?? url.lastPathComponent)
-               DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        getData(from: url) { (data, response, error) in
+            guard let data = data, error == nil else { return }
+            print(response?.suggestedFilename ?? url.lastPathComponent)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 if let user = Auth.auth().currentUser { self.db.collection(Constants.CollectionNames.users).document(user.email!).setData([
                     Constants.ImageCollections.progressImages: UIImage(data: data)!
                 ], merge: true)
-               }
-           }
+                }
+            }
         }
     }
     
@@ -211,27 +211,27 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                 if snapshot == nil || snapshot?.documents.isEmpty == true{
                     return
                 }
-                    else {
+                else {
                     for doc in snapshot!.documents {
-                            if doc.documentID == date && doc.exists{
-                                var newExercise : Exercise
-                                for data in doc.data() as! [String: [String:Any]]{
-                                    if let repetitions = data.value[Constants.DocumentFields.repetitions] as? String, let muscleGroup = data.value[Constants.DocumentFields.muscleGroup] as? String, let sets = data.value[Constants.DocumentFields.sets] as? String, let timeOfCreation = data.value[Constants.DocumentFields.timeOfCreation] as? Double, let done = data.value[Constants.DocumentFields.done] as? Bool {
-                                        newExercise = Exercise(exerciseName: data.key, repetitions: repetitions, muscleGroup: muscleGroup, timeOfCreation: timeOfCreation, sets: sets, done: done)
-                                            WorkoutManager.shared.exercises.append(newExercise)
-                                        }
+                        if doc.documentID == date && doc.exists{
+                            var newExercise : Exercise
+                            for data in doc.data() as! [String: [String:Any]]{
+                                if let repetitions = data.value[Constants.DocumentFields.repetitions] as? String, let muscleGroup = data.value[Constants.DocumentFields.muscleGroup] as? String, let sets = data.value[Constants.DocumentFields.sets] as? String, let timeOfCreation = data.value[Constants.DocumentFields.timeOfCreation] as? Double, let done = data.value[Constants.DocumentFields.done] as? Bool {
+                                    newExercise = Exercise(exerciseName: data.key, repetitions: repetitions, muscleGroup: muscleGroup, timeOfCreation: timeOfCreation, sets: sets, done: done)
+                                    WorkoutManager.shared.exercises.append(newExercise)
                                 }
                             }
+                        }
                     }
                     
                     WorkoutManager.shared.exercises.sort { (ex1: Exercise, ex2: Exercise) -> Bool in
                         ex1.timeOfCreation < ex2.timeOfCreation
                     }
-                    }
-                    }
+                }
+            }
         }
-}
-
+    }
+    
     @IBAction func choseWorkout(_ sender: UIButton) {
         let destinationVC = storyboard?.instantiateViewController(identifier: Constants.ControllersIdentifiers.chooseWorkout) as! ChooseWorkoutViewController
         destinationVC.addCustomWorkoutDelegate = self
@@ -239,51 +239,51 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return WorkoutManager.shared.numberOfExercises
-        }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return WorkoutManager.shared.numberOfExercises
+    }
     
     
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            
-            let exercise = WorkoutManager.shared.exercises[indexPath.row]
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.exercise, for: indexPath) as! CalendarExerciseTableViewCell
-            
-            cell.exerciseName.text = exercise.exerciseName
-            cell.repsLabel.text = "\(exercise.repetitions) reps"
-            cell.setsLabel.text = "\(exercise.sets) sets"
-            switch exercise.muscleGroup {
-            case "Shoulders":
-                cell.muscleGroupImage.image = #imageLiteral(resourceName: "shoulderEdited")
-            case "Biceps":
-                cell.muscleGroupImage.image = #imageLiteral(resourceName: "bicepsEdited")
-            case "Abs":
-                cell.muscleGroupImage.image = #imageLiteral(resourceName: "abs")
-            case "Tighs":
-                cell.muscleGroupImage.image = #imageLiteral(resourceName: "tighs")
-            case "Calves":
-                cell.muscleGroupImage.image = #imageLiteral(resourceName: "calves")
-            case "Back":
-                cell.muscleGroupImage.image = #imageLiteral(resourceName: "backEdited")
-            case "Chest":
-                cell.muscleGroupImage.image = #imageLiteral(resourceName: "chestEdited")
-            default:
-                cell.muscleGroupImage.image = #imageLiteral(resourceName: "dumbbell")
-            }
-            if exercise.done {
-                cell.exerciseName.textColor = #colorLiteral(red: 0.4078, green: 0.8471, blue: 0.6118, alpha: 1)
-            } else {
-                cell.exerciseName.textColor = #colorLiteral(red: 0.2235, green: 0.2471, blue: 0.2275, alpha: 1)
-            }
-            cell.background.layer.cornerRadius = 6
-            cell.background.layer.shadowColor = UIColor.black.cgColor
-            cell.background.layer.shadowOpacity = 0.4
-            cell.background.layer.shadowRadius = 6
-            cell.background.layer.shadowOffset = CGSize(width: 2, height: 3)
-
-            
-            return cell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let exercise = WorkoutManager.shared.exercises[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.exercise, for: indexPath) as! CalendarExerciseTableViewCell
+        
+        cell.exerciseName.text = exercise.exerciseName
+        cell.repsLabel.text = "\(exercise.repetitions) reps"
+        cell.setsLabel.text = "\(exercise.sets) sets"
+        switch exercise.muscleGroup {
+        case "Shoulders":
+            cell.muscleGroupImage.image = #imageLiteral(resourceName: "shoulderEdited")
+        case "Biceps":
+            cell.muscleGroupImage.image = #imageLiteral(resourceName: "bicepsEdited")
+        case "Abs":
+            cell.muscleGroupImage.image = #imageLiteral(resourceName: "abs")
+        case "Tighs":
+            cell.muscleGroupImage.image = #imageLiteral(resourceName: "tighs")
+        case "Calves":
+            cell.muscleGroupImage.image = #imageLiteral(resourceName: "calves")
+        case "Back":
+            cell.muscleGroupImage.image = #imageLiteral(resourceName: "backEdited")
+        case "Chest":
+            cell.muscleGroupImage.image = #imageLiteral(resourceName: "chestEdited")
+        default:
+            cell.muscleGroupImage.image = #imageLiteral(resourceName: "dumbbell")
         }
+        if exercise.done {
+            cell.exerciseName.textColor = #colorLiteral(red: 0.4078, green: 0.8471, blue: 0.6118, alpha: 1)
+        } else {
+            cell.exerciseName.textColor = #colorLiteral(red: 0.2235, green: 0.2471, blue: 0.2275, alpha: 1)
+        }
+        cell.background.layer.cornerRadius = 6
+        cell.background.layer.shadowColor = UIColor.black.cgColor
+        cell.background.layer.shadowOpacity = 0.4
+        cell.background.layer.shadowRadius = 6
+        cell.background.layer.shadowOffset = CGSize(width: 2, height: 3)
+        
+        
+        return cell
+    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120.0
@@ -299,20 +299,20 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-            
+        
         let done = UIContextualAction(style: .normal, title: Constants.SwipeAction.done) { (action, view, complete) in
             if let exerciseDone = WorkoutManager.shared.exercises[indexPath.row].exerciseName as? String {              self.db.collection(Constants.CollectionNames.users).document(self.user!).collection(Constants.CollectionNames.schedueledWorkouts).document(self.currentDate).setData([
-                    exerciseDone : [
-                        "done" : true
-                    ]
-                    ], merge: true)
+                exerciseDone : [
+                    "done" : true
+                ]
+            ], merge: true)
             }
             let cell = tableView.cellForRow(at: indexPath) as! CalendarExerciseTableViewCell
             
             UIView.transition(with: cell.exerciseName, duration: 0.25, options: .transitionCrossDissolve, animations: {
                 cell.exerciseName.textColor = #colorLiteral(red: 0.4078, green: 0.8471, blue: 0.6118, alpha: 1)
             },
-            completion: nil)
+                              completion: nil)
             complete(true)
         }
         done.backgroundColor = #colorLiteral(red: 0.4078, green: 0.8471, blue: 0.6118, alpha: 1)
@@ -325,15 +325,15 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         let delete = UIContextualAction(style: .destructive, title: Constants.SwipeAction.delete) { (action, view, nil) in
             if let user = self.user, let exerciseToBeDeleted = WorkoutManager.shared.exercises[indexPath.row].exerciseName as? String{
                 self.db.collection(Constants.CollectionNames.users).document(user).collection(Constants.CollectionNames.schedueledWorkouts).document(self.currentDate).updateData([
-                        exerciseToBeDeleted: FieldValue.delete()
-                    ])
+                    exerciseToBeDeleted: FieldValue.delete()
+                ])
                 
                 WorkoutManager.shared.numberOfExercises -= 1
                 WorkoutManager.shared.exercises.removeAll { (exercise) -> Bool in
                     return exercise.exerciseName == exerciseToBeDeleted
                 }
-                    tableView.deleteRows(at: [indexPath], with: .bottom)
-                }
+                tableView.deleteRows(at: [indexPath], with: .bottom)
+            }
             
         }
         
@@ -342,7 +342,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         return UISwipeActionsConfiguration(actions: [delete])
     }
     
-     
+    
     func noExercisesView() {
         if WorkoutManager.shared.numberOfExercises == 0 {
             
@@ -369,7 +369,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
 extension CalendarViewController: AddNewExerciseDelegate {
     func addExercice(date: String) {
         tableView.reloadData()
-//        WorkoutManager.shared.exercises.removeAll()
+        //        WorkoutManager.shared.exercises.removeAll()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.displayExercises(date: WorkoutManager.shared.date)
         }
@@ -384,7 +384,7 @@ extension CalendarViewController : AddCustomWorkoutDelegate {
             self.displayExercises(date: WorkoutManager.shared.date)
         }
     }
-
+    
 }
 
 
