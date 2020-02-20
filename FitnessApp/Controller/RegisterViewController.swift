@@ -9,18 +9,22 @@
 import UIKit
 import Firebase
 import TextFieldFloatingPlaceholder
+import FirebaseFirestore
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, UITextFieldDelegate {
     let db = Firestore.firestore()
 
     @IBOutlet var emailTextField: TextFieldFloatingPlaceholder!
     
     @IBOutlet var passwordTextField: TextFieldFloatingPlaceholder!
     
+
     
     @IBOutlet var errorLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         errorLabel.text = ""
         updateTextFields()
     }
@@ -54,15 +58,10 @@ class RegisterViewController: UIViewController {
         passwordTextField.validationTrueLineColor = UIColor.black.withAlphaComponent(1)
         passwordTextField.validationTrueLineEditingColor = UIColor.init(red: 203/255, green: 209/255, blue: 255/255, alpha: 1)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
-    */
 
 }

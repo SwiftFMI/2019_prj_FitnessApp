@@ -55,6 +55,7 @@ struct Constants {
     
     struct ImageCollections {
         static let profileImages = "profileImages"
+        static let progressImages = "progressImages"
     }
     
     struct CellIdentifiers {

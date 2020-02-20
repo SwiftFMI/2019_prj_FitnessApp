@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 import NotificationBannerSwift
+import FirebaseFirestore
+
 class YourFriendsTableViewController: UITableViewController {
     
     let user = Auth.auth().currentUser?.email

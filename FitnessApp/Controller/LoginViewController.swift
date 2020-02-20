@@ -10,10 +10,12 @@ import UIKit
 import Firebase
 import TextFieldFloatingPlaceholder
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var emailTextField: TextFieldFloatingPlaceholder!
     @IBOutlet var passwordTextField: TextFieldFloatingPlaceholder!
+    
+
     
     @IBOutlet var errorLabel: UILabel!
     let userDefaults = UserDefaults.standard
@@ -23,6 +25,8 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         updateTextFields()
         errorLabel.text = ""
+        emailTextField.delegate = self
+        passwordTextField.delegate = self 
 //        emailTextField.text = Constants.Profile.email
 //        passwordTextField.text = Constants.Profile.password
     }
@@ -73,5 +77,11 @@ class LoginViewController: UIViewController {
         passwordTextField.validationTrueLineColor = UIColor.black.withAlphaComponent(1)
         passwordTextField.validationTrueLineEditingColor = UIColor.init(red: 203/255, green: 209/255, blue: 255/255, alpha: 1)
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+  
 }
 
