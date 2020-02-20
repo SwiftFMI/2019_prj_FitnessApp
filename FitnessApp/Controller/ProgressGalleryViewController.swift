@@ -149,7 +149,7 @@ class ProgressGalleryViewController: UIViewController, UINavigationControllerDel
             imageView.frame = CGRect(x: xPosition, y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
             imageView.contentMode = .scaleAspectFit
             
-            scrollView.contentSize.width = scrollView.frame.width * CGFloat(i + 1)
+            scrollView.contentSize.width = scrollView.frame.width 
             scrollView.addSubview(imageView)
             scrollView.delegate = self as? UIScrollViewDelegate
         }
