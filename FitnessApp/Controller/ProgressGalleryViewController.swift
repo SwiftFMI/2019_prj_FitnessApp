@@ -11,7 +11,13 @@ import Firebase
 import FirebaseStorage
 import FirebaseFirestore
 
-class ProgressGalleryViewController: UIViewController {
+class ProgressGalleryViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+   
+    @IBOutlet weak var noImagesLabel: UILabel!
+    @IBOutlet weak var cameraButton: UIButton!
+    
+    
+    
     
     let db = Firestore.firestore()
     let user = Auth.auth().currentUser?.email
@@ -36,6 +42,91 @@ class ProgressGalleryViewController: UIViewController {
         setupImages(imageArray)
     }
     
+    @IBAction func openCamera(_ sender: Any) {
+        if cameraButton.imageView?.image != nil {
+            let imagePicker = UIImagePickerController()
+            imagePicker.sourceType = .camera
+            imagePicker.allowsEditing = true
+            imagePicker.delegate = self
+            present(imagePicker, animated: true)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        let newImage = info[.originalImage] as? UIImage
+        addImageToProgressArray()
+        uploadPhoto(image: newImage!)
+    }
+    
+    func uploadPhoto(image: UIImage) {
+        guard let data = image.jpegData(compressionQuality: 1.0) else {
+                  return
+              }
+              
+              let imageName = UUID().uuidString
+              let imageReference = Storage.storage().reference().child("images").child(imageName)
+              
+              imageReference.putData(data, metadata: nil) { (metadata, err) in
+                  if err != nil {
+                      return
+                  }
+                  imageReference.downloadURL { (url, err) in
+                      if err != nil {
+                          return
+                      }
+                      guard let url = url else {
+                          return
+                      }
+                      
+                      let dataReference = self.db.collection(Constants.CollectionNames.users).document(self.user!)
+                      let documentID = dataReference.documentID
+                      let urlString = url.absoluteString
+                      
+                      let data = [
+                          "progressImages" : [[
+                              "imageUid": documentID,
+                              "imageURL": urlString
+                          ]]
+                          
+                      ]
+                      dataReference.setData(data, merge: true) { (err) in
+                          if let err = err {
+                              print(err)
+                          } else {
+                              UserDefaults.standard.set(documentID, forKey: "imageURL")
+                          }
+                          
+                      }
+                  }
+              }
+          }
+    
+    
+    func addImageToProgressArray() {
+            db.collection(Constants.CollectionNames.users).document(user!).getDocument { (document, err) in
+                if let e = err {
+                    print(e)
+                } else {
+                    
+                    if let data = document?.data() {
+                        if let dataObject = data["progressImages"] as? [String:Any] {
+                            guard let url = URL(string: dataObject["imageURL"] as! String) else { return }
+                            self.downloadImage(url: url)
+                            print(url)
+                        }
+                }
+                }
+            }
+        
+    }
+    
+    func getData(from url: URL, completion: @escaping(Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
+    
     func setProgressImage() {
         db.collection(Constants.CollectionNames.users).document(user!).getDocument { (document, err) in
             if let e = err {
@@ -54,10 +145,6 @@ class ProgressGalleryViewController: UIViewController {
         
     }
     
-    func getData(from url: URL, completion: @escaping(Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-    
     func downloadImage(url: URL){
         getData(from: url) { (data, response, error) in
             guard let data = data, error == nil else { return }
@@ -69,7 +156,10 @@ class ProgressGalleryViewController: UIViewController {
     }
     
     func setupImages(_ images: [UIImage]){
-        
+        if images.isEmpty {
+            noImagesLabel.text =  "Your progress gallery is empty. \n Start tracking your progress now!"
+            cameraButton.setImage(UIImage(systemName: "camera"), for: .normal)
+        }
         for i in 0..<images.count {
             
             let imageView = UIImageView()
@@ -80,7 +170,7 @@ class ProgressGalleryViewController: UIViewController {
             
             scrollView.contentSize.width = scrollView.frame.width * CGFloat(i + 1)
             scrollView.addSubview(imageView)
-            scrollView.delegate = self as! UIScrollViewDelegate
+            scrollView.delegate = self as? UIScrollViewDelegate
         }
     }
     
