@@ -13,12 +13,14 @@ import FirebaseFirestore
 
 
 
-class IntroductionViewController: UIViewController{
+class IntroductionViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var usernameTextField: TextFieldFloatingPlaceholder!
     var db = Firestore.firestore()
     let userDefaults = UserDefaults.standard
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        usernameTextField.delegate = self
         usernameTextField.validationTrueLineColor = UIColor.black.withAlphaComponent(1)
         usernameTextField.validationTrueLineEditingColor = UIColor.init(red: 203/255, green: 209/255, blue: 255, alpha: 1)
     }
@@ -35,7 +37,7 @@ class IntroductionViewController: UIViewController{
                 ], merge: true)
             userDefaults.set(username, forKey: "username")
         }
-
+    }
     /*
     // MARK: - Navigation
 
@@ -45,6 +47,11 @@ class IntroductionViewController: UIViewController{
         // Pass the selected object to the new view controller.
     }
     */
+        
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            textField.resignFirstResponder()
+            return true
+        }
+        
 
-}
 }

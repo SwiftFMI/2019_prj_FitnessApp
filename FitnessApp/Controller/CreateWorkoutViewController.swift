@@ -14,7 +14,7 @@ protocol addWorkoutRoutineDelegate {
     func addWorkout(workout: String)
 }
 
-class CreateWorkoutViewController: UIViewController {
+class CreateWorkoutViewController: UIViewController, UITextFieldDelegate {
 
     let db = Firestore.firestore()
     let muscleGroups : [String] = ["Shoulders", "Biceps",
@@ -23,7 +23,7 @@ class CreateWorkoutViewController: UIViewController {
     var muscleGroupChosen: String = ""
     var exercises : [Exercise] = []
     
-    
+
     
     @IBOutlet weak var muscleGroup: UIPickerView!
     
@@ -43,6 +43,10 @@ class CreateWorkoutViewController: UIViewController {
         tableView.dataSource = self
         muscleGroup.dataSource = self
         muscleGroup.delegate = self
+        workoutTitle.delegate = self
+        exerciseNameField.delegate = self
+        setsField.delegate = self
+        repsField.delegate = self 
         exercises.removeAll()
         self.textFields = [workoutTitle, exerciseNameField,setsField,repsField]
     }
@@ -80,6 +84,12 @@ class CreateWorkoutViewController: UIViewController {
         
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+                textField.resignFirstResponder()
+                return true
+            }
+          
+    
 }
 extension CreateWorkoutViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -111,4 +121,6 @@ extension CreateWorkoutViewController : UIPickerViewDataSource, UIPickerViewDele
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         muscleGroupChosen = muscleGroups[row]
     }
+    
+  
 }
