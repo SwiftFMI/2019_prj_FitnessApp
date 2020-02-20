@@ -14,10 +14,6 @@ import FirebaseFirestore
 class ProgressGalleryViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
    
     @IBOutlet weak var noImagesLabel: UILabel!
-    @IBOutlet weak var cameraButton: UIButton!
-    
-    
-    
     
     let db = Firestore.firestore()
     let user = Auth.auth().currentUser?.email
@@ -43,13 +39,11 @@ class ProgressGalleryViewController: UIViewController, UINavigationControllerDel
     }
     
     @IBAction func openCamera(_ sender: Any) {
-        if cameraButton.imageView?.image != nil {
             let imagePicker = UIImagePickerController()
             imagePicker.sourceType = .camera
             imagePicker.allowsEditing = true
             imagePicker.delegate = self
             present(imagePicker, animated: true)
-        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -158,7 +152,6 @@ class ProgressGalleryViewController: UIViewController, UINavigationControllerDel
     func setupImages(_ images: [UIImage]){
         if images.isEmpty {
             noImagesLabel.text =  "Your progress gallery is empty. \n Start tracking your progress now!"
-            cameraButton.setImage(UIImage(systemName: "camera"), for: .normal)
         }
         for i in 0..<images.count {
             

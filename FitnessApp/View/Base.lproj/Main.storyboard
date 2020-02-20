@@ -607,13 +607,7 @@ sign in to continue</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zcf-gE-cck">
-                                <rect key="frame" x="146" y="502" width="105" height="71"/>
-                                <connections>
-                                    <action selector="openCamera:" destination="9QK-Zy-Bx2" eventType="touchUpInside" id="Pn5-sc-ZBe"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aph-oj-j3l">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aph-oj-j3l">
                                 <rect key="frame" x="20" y="266" width="374" height="189"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -622,19 +616,21 @@ sign in to continue</string>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="vQY-4k-fvj" firstAttribute="bottom" secondItem="Zcf-gE-cck" secondAttribute="bottom" constant="240" id="9ga-tU-lnK"/>
                             <constraint firstItem="aph-oj-j3l" firstAttribute="leading" secondItem="vQY-4k-fvj" secondAttribute="leading" constant="20" id="CbY-ny-Vaf"/>
                             <constraint firstItem="vQY-4k-fvj" firstAttribute="trailing" secondItem="aph-oj-j3l" secondAttribute="trailing" constant="20" id="VfI-Pb-g1o"/>
-                            <constraint firstItem="Zcf-gE-cck" firstAttribute="top" secondItem="aph-oj-j3l" secondAttribute="bottom" constant="47" id="bUw-pi-Dps"/>
-                            <constraint firstItem="vQY-4k-fvj" firstAttribute="trailing" secondItem="Zcf-gE-cck" secondAttribute="trailing" constant="163" id="nlu-vd-uTp"/>
                             <constraint firstItem="aph-oj-j3l" firstAttribute="top" secondItem="vQY-4k-fvj" secondAttribute="top" constant="178" id="pyl-1R-DkB"/>
-                            <constraint firstItem="Zcf-gE-cck" firstAttribute="leading" secondItem="vQY-4k-fvj" secondAttribute="leading" constant="146" id="u22-Ht-G59"/>
+                            <constraint firstItem="vQY-4k-fvj" firstAttribute="bottom" secondItem="aph-oj-j3l" secondAttribute="bottom" constant="358" id="vSD-TF-X4w"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vQY-4k-fvj"/>
                     </view>
-                    <navigationItem key="navigationItem" id="otn-F2-hiI"/>
+                    <navigationItem key="navigationItem" id="otn-F2-hiI">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="camera" id="aux-4I-dmy">
+                            <connections>
+                                <action selector="openCamera:" destination="9QK-Zy-Bx2" id="HLF-eL-Wdf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="cameraButton" destination="Zcf-gE-cck" id="n79-aW-Tk3"/>
                         <outlet property="noImagesLabel" destination="aph-oj-j3l" id="WY7-Qy-mVn"/>
                     </connections>
                 </viewController>
