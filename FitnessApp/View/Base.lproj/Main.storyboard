@@ -590,7 +590,7 @@ sign in to continue</string>
             </objects>
             <point key="canvasLocation" x="6939.130434782609" y="1887.7232142857142"/>
         </scene>
-        <!--Progress Gallery View Controller-->
+        <!--Progress-->
         <scene sceneID="ZNW-E9-DCh">
             <objects>
                 <viewController modalPresentationStyle="currentContext" id="9QK-Zy-Bx2" customClass="ProgressGalleryViewController" customModule="FitnessApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -614,7 +614,7 @@ sign in to continue</string>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="vQY-4k-fvj"/>
                     </view>
-                    <navigationItem key="navigationItem" id="otn-F2-hiI">
+                    <navigationItem key="navigationItem" title="Progress" id="otn-F2-hiI">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="camera" id="aux-4I-dmy">
                             <connections>
                                 <action selector="openCamera:" destination="9QK-Zy-Bx2" id="HLF-eL-Wdf"/>

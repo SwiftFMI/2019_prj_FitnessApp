@@ -152,12 +152,13 @@ extension ProgressGalleryViewController {
             if let e = err {
                 print(e)
             } else {
-                
-                if let data = document?.data() {
-                    if let dataObject = data["progressImages"] as? [String:Any] {
-                        guard let url = URL(string: dataObject["imageURL"] as! String) else { return }
-                        self.downloadImage(url: url)
-                        print(url)
+                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                    if let data = document?.data() {
+                        if let dataObject = data["progressImages"] as? [String:Any] {
+                            guard let url = URL(string: dataObject["imageURL"] as! String) else { return }
+                            self.downloadImage(url: url)
+                            print(url)
+                        }
                     }
                 }
             }
