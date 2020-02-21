@@ -40,12 +40,11 @@
 		4DF0921A23FAD5A500AE3ACA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DF0921823FAD5A500AE3ACA /* Main.storyboard */; };
 		C862C5DC23FC26DD00D8DACE /* ProgressGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C862C5DB23FC26DD00D8DACE /* ProgressGalleryViewController.swift */; };
 		C87CE2A623FFFED600EC3A5C /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87CE2A523FFFED600EC3A5C /* ImageDetailViewController.swift */; };
-		C87CE2AA23FFFF5F00EC3A5C /* ProgressImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87CE2A923FFFF5F00EC3A5C /* ProgressImages.swift */; };
 		C87F1C1D2400116900C1EF24 /* ProgressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87F1C1B2400116900C1EF24 /* ProgressCollectionViewCell.swift */; };
 		C87F1C1E2400116900C1EF24 /* ProgressCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87F1C1C2400116900C1EF24 /* ProgressCollectionViewCell.xib */; };
 		C886ADE523EAEF2B00ADCFDF /* CustomWorkoutPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C886ADE423EAEF2B00ADCFDF /* CustomWorkoutPreviewViewController.swift */; };
 		C886ADE723EAEF3100ADCFDF /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C886ADE623EAEF3100ADCFDF /* ProfileTableViewController.swift */; };
-		C8BE8195240015C200A449AC /* ProgressImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BE8194240015C200A449AC /* ProgressImages.swift */; };
+		C8BE81982400216A00A449AC /* ProgressImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BE81972400216A00A449AC /* ProgressImages.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,13 +109,12 @@
 		A37084EFD590C5C942A97C0E /* Pods-FitnessAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FitnessAppTests.debug.xcconfig"; path = "Target Support Files/Pods-FitnessAppTests/Pods-FitnessAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C1179209AE56A41F7BB74A49 /* Pods_FitnessApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FitnessApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C862C5DB23FC26DD00D8DACE /* ProgressGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressGalleryViewController.swift; sourceTree = "<group>"; };
-		C87CE2A523FFFED600EC3A5C /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageDetailViewController.swift; path = FitnessApp/Controller/ImageDetailViewController.swift; sourceTree = SOURCE_ROOT; };
-		C87CE2A923FFFF5F00EC3A5C /* ProgressImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProgressImages.swift; path = /Users/rosiana.ladzheva/Projects2/2019_prj_FitnessApp/FitnessApp/Controller/ProgressImages.swift; sourceTree = "<absolute>"; };
+		C87CE2A523FFFED600EC3A5C /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageDetailViewController.swift; path = FitnessApp/Controller/Progress/ImageDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		C87F1C1B2400116900C1EF24 /* ProgressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCollectionViewCell.swift; sourceTree = "<group>"; };
 		C87F1C1C2400116900C1EF24 /* ProgressCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressCollectionViewCell.xib; sourceTree = "<group>"; };
 		C886ADE423EAEF2B00ADCFDF /* CustomWorkoutPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomWorkoutPreviewViewController.swift; sourceTree = "<group>"; };
 		C886ADE623EAEF3100ADCFDF /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
-		C8BE8194240015C200A449AC /* ProgressImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProgressImages.swift; path = /Users/rosiana.ladzheva/Projects2/2019_prj_FitnessApp/FitnessApp/Controller/ProgressImages.swift; sourceTree = "<absolute>"; };
+		C8BE81972400216A00A449AC /* ProgressImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressImages.swift; sourceTree = "<group>"; };
 		D0D4BC973BB5E8EF9625C2F0 /* Pods-FitnessAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FitnessAppTests.release.xcconfig"; path = "Target Support Files/Pods-FitnessAppTests/Pods-FitnessAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		FE403BFF36FCB1AAFBA80404 /* Pods-FitnessApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FitnessApp.release.xcconfig"; path = "Target Support Files/Pods-FitnessApp/Pods-FitnessApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -152,7 +150,7 @@
 		4C79BBAA23A3E42400885375 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C87CE2A923FFFF5F00EC3A5C /* ProgressImages.swift */,
+				C8BE81972400216A00A449AC /* ProgressImages.swift */,
 				4C65F60423AE489700782D66 /* WorkoutModel.swift */,
 			);
 			path = Model;
@@ -161,12 +159,9 @@
 		4C79BBAB23A3E42900885375 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C8BE8194240015C200A449AC /* ProgressImages.swift */,
-				C862C5DB23FC26DD00D8DACE /* ProgressGalleryViewController.swift */,
+				C8BE81962400213B00A449AC /* Progress */,
 				4C79BBA823A3E41D00885375 /* LoginViewController.swift */,
 				4C79BBAD23A3E45300885375 /* RegisterViewController.swift */,
-				C87F1C1B2400116900C1EF24 /* ProgressCollectionViewCell.swift */,
-				C87F1C1C2400116900C1EF24 /* ProgressCollectionViewCell.xib */,
 				4C79BBAF23A3EB4400885375 /* FirstSetupPageViewController.swift */,
 				4C79BBB523A3F10900885375 /* IntroductionViewController.swift */,
 				C886ADE623EAEF3100ADCFDF /* ProfileTableViewController.swift */,
@@ -180,7 +175,6 @@
 				4DF0920923FAC10600AE3ACA /* CustomWorkoutPreviewViewController.swift */,
 				4DF0920B23FAC29B00AE3ACA /* ProfileTableViewController.swift */,
 				4DF0920D23FAC3E100AE3ACA /* FindFriendsTableViewController.swift */,
-				C87CE2A523FFFED600EC3A5C /* ImageDetailViewController.swift */,
 				4CC584D223FCF27600F4680A /* YourFriendsTableViewController.swift */,
 			);
 			path = Controller;
@@ -281,6 +275,17 @@
 				74DC574C0F19C3B0D99AD165 /* Pods_FitnessAppTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C8BE81962400213B00A449AC /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				C862C5DB23FC26DD00D8DACE /* ProgressGalleryViewController.swift */,
+				C87F1C1C2400116900C1EF24 /* ProgressCollectionViewCell.xib */,
+				C87F1C1B2400116900C1EF24 /* ProgressCollectionViewCell.swift */,
+				C87CE2A523FFFED600EC3A5C /* ImageDetailViewController.swift */,
+			);
+			path = Progress;
 			sourceTree = "<group>";
 		};
 		F0A5CD82CEBF41B9D8CAF311 /* Pods */ = {
@@ -559,9 +564,8 @@
 				4DF0920A23FAC10600AE3ACA /* CustomWorkoutPreviewViewController.swift in Sources */,
 				4C953CD223A3BB0600F5B618 /* FitnessApp.xcdatamodeld in Sources */,
 				4C953CC823A3BB0600F5B618 /* AppDelegate.swift in Sources */,
-				C87CE2AA23FFFF5F00EC3A5C /* ProgressImages.swift in Sources */,
 				4C953CCA23A3BB0600F5B618 /* SceneDelegate.swift in Sources */,
-				C8BE8195240015C200A449AC /* ProgressImages.swift in Sources */,
+				C8BE81982400216A00A449AC /* ProgressImages.swift in Sources */,
 				4CC1F83523C71DB6002AB729 /* CreateWorkoutViewController.swift in Sources */,
 				C862C5DC23FC26DD00D8DACE /* ProgressGalleryViewController.swift in Sources */,
 				4C79BBB823A3F11900885375 /* UserDetailsViewController.swift in Sources */,

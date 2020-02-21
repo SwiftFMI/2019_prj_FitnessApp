@@ -12,7 +12,7 @@ import FirebaseStorage
 import FirebaseFirestore
 
 class ProgressGalleryViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-
+    
     //MARK: - IBOutlets
     @IBOutlet weak var progressCollectionView: UICollectionView!
     
@@ -22,9 +22,14 @@ class ProgressGalleryViewController: UIViewController, UINavigationControllerDel
     var progressImage = UIImage()
     var progressImages = ProgressImages()
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       configureCollectionView()
+        configureCollectionView()
+        
+        let layout = self.progressCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        configureLayout(layout: layout)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -40,7 +45,7 @@ class ProgressGalleryViewController: UIViewController, UINavigationControllerDel
         present(imagePicker, animated: true)
     }
     
-
+    
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == ("ShowImage") {
@@ -53,10 +58,10 @@ class ProgressGalleryViewController: UIViewController, UINavigationControllerDel
 //MARK: - UICollectionView
 extension ProgressGalleryViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-           progressImages.imagesArray.count
-       }
-       
-       func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        progressImages.imagesArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = progressCollectionView.dequeueReusableCell(withReuseIdentifier: "ProgressCollectionViewCell", for: indexPath) as? ProgressCollectionViewCell
             else { return UICollectionViewCell() }
         
@@ -64,26 +69,13 @@ extension ProgressGalleryViewController: UICollectionViewDelegate, UICollectionV
         cell.configureCell(with: image)
         cell.contentView.frame = cell.bounds
         
-           return cell
-       }
-     
-       func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-           let cell = progressCollectionView.cellForItem(at: indexPath) as! ProgressCollectionViewCell
-           progressImage = cell.progressImageView.image!
-           performSegue(withIdentifier: "ShowImage", sender: self)
-       }
-       
+        return cell
+    }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        guard let flowLayout = progressCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-        
-        flowLayout.itemSize = progressCollectionView.frame.size
-        
-        flowLayout.invalidateLayout()
-        
-        progressCollectionView.collectionViewLayout.invalidateLayout()
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = progressCollectionView.cellForItem(at: indexPath) as! ProgressCollectionViewCell
+        progressImage = cell.progressImageView.image!
+        performSegue(withIdentifier: "ShowImage", sender: self)
     }
     
     func configureCollectionView() {
@@ -91,17 +83,22 @@ extension ProgressGalleryViewController: UICollectionViewDelegate, UICollectionV
         progressCollectionView.delegate = self
         progressCollectionView.register(UINib(nibName: "ProgressCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ProgressCollectionViewCell")
     }
+    
+    func configureLayout(layout: UICollectionViewFlowLayout) {
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        layout.minimumInteritemSpacing = 5
+    }
 }
 
 //MARK: - Camera methods
 extension ProgressGalleryViewController {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-         picker.dismiss(animated: true, completion: nil)
-         
-         let newImage = info[.originalImage] as? UIImage
-         addImageToProgressArray()
-         uploadPhoto(image: newImage!)
-     }
+        picker.dismiss(animated: true, completion: nil)
+        
+        let newImage = info[.originalImage] as? UIImage
+        addImageToProgressArray()
+        uploadPhoto(image: newImage!)
+    }
 }
 
 
@@ -135,7 +132,7 @@ extension ProgressGalleryViewController {
                     "progressImages" : [
                         "imageUid": documentID,
                         "imageURL": urlString
-                        ]
+                    ]
                     
                 ]
                 dataReference.setData(data, merge: true) { (err) in
@@ -158,13 +155,13 @@ extension ProgressGalleryViewController {
                 
                 if let data = document?.data() {
                     if let dataObject = data["progressImages"] as? [String:Any] {
-                            guard let url = URL(string: dataObject["imageURL"] as! String) else { return }
+                        guard let url = URL(string: dataObject["imageURL"] as! String) else { return }
                         self.downloadImage(url: url)
-                            print(url)
-                        }
+                        print(url)
                     }
                 }
             }
+        }
     }
     
     func downloadImage(url: URL) {
