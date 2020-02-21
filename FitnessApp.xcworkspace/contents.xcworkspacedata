@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/rosiana.ladzheva/Projects2/2019_prj_FitnessApp/FitnessApp/Controller/ProgressImages.swift">
+   </FileRef>
+   <FileRef
       location = "group:FitnessApp.xcodeproj">
    </FileRef>
    <FileRef

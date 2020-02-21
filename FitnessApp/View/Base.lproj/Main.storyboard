@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="x9H-RX-hDN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16092.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="x9H-RX-hDN">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16082.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -609,20 +610,39 @@ sign in to continue</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aph-oj-j3l">
-                                <rect key="frame" x="20" y="266" width="374" height="264"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="R65-EI-KFA">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="AeW-xT-oF3">
+                                    <size key="itemSize" width="184" height="174"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="dOP-c1-Bjt" customClass="ProgressGalleryCollectionViewCell" customModule="FitnessApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="193" height="174"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="A86-Iz-nBS">
+                                            <rect key="frame" x="0.0" y="0.0" width="193" height="174"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r2k-F8-OAw">
+                                                    <rect key="frame" x="0.0" y="0.0" width="193" height="174"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="193" height="174"/>
+                                        <connections>
+                                            <outlet property="progressImageView" destination="r2k-F8-OAw" id="7wu-bt-ctL"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="aph-oj-j3l" firstAttribute="leading" secondItem="vQY-4k-fvj" secondAttribute="leading" constant="20" id="CbY-ny-Vaf"/>
-                            <constraint firstItem="vQY-4k-fvj" firstAttribute="trailing" secondItem="aph-oj-j3l" secondAttribute="trailing" constant="20" id="VfI-Pb-g1o"/>
-                            <constraint firstItem="aph-oj-j3l" firstAttribute="top" secondItem="vQY-4k-fvj" secondAttribute="top" constant="178" id="pyl-1R-DkB"/>
-                            <constraint firstItem="vQY-4k-fvj" firstAttribute="bottom" secondItem="aph-oj-j3l" secondAttribute="bottom" constant="283" id="vSD-TF-X4w"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vQY-4k-fvj"/>
                     </view>
                     <navigationItem key="navigationItem" id="otn-F2-hiI">
@@ -633,12 +653,42 @@ sign in to continue</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="noImagesLabel" destination="aph-oj-j3l" id="WY7-Qy-mVn"/>
+                        <outlet property="progressCollectionView" destination="R65-EI-KFA" id="Lan-2F-oqK"/>
+                        <segue destination="Kja-NC-T3q" kind="showDetail" identifier="ShowImage" id="J1q-2D-gPf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="igZ-bt-4FX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5877" y="1065"/>
+            <point key="canvasLocation" x="5806" y="1040"/>
+        </scene>
+        <!--Image Detail View Controller-->
+        <scene sceneID="TSO-PK-44Y">
+            <objects>
+                <viewController storyboardIdentifier="ImageDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Kja-NC-T3q" customClass="ImageDetailViewController" customModule="FitnessApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jqn-OK-SXg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jx7-ea-OkJ">
+                                <rect key="frame" x="58" y="260" width="298" height="288"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Jx7-ea-OkJ" firstAttribute="leading" secondItem="OgY-0Z-6d7" secondAttribute="leading" constant="58" id="1J1-k0-AU0"/>
+                            <constraint firstItem="Jx7-ea-OkJ" firstAttribute="top" secondItem="OgY-0Z-6d7" secondAttribute="top" constant="260" id="2Yb-1c-OKX"/>
+                            <constraint firstItem="OgY-0Z-6d7" firstAttribute="trailing" secondItem="Jx7-ea-OkJ" secondAttribute="trailing" constant="58" id="5ym-oS-6aB"/>
+                            <constraint firstItem="OgY-0Z-6d7" firstAttribute="bottom" secondItem="Jx7-ea-OkJ" secondAttribute="bottom" constant="260" id="dHb-ob-GAg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="OgY-0Z-6d7"/>
+                    </view>
+                    <connections>
+                        <outlet property="progressImage" destination="Jx7-ea-OkJ" id="8uW-3V-BjV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ziw-wa-pcO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6844.9275362318849" y="1068.75"/>
         </scene>
         <!--Create Workout View Controller-->
         <scene sceneID="vlF-Hh-fPz">
@@ -655,12 +705,12 @@ sign in to continue</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Exercise Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KPj-ig-cJl" customClass="JVFloatLabeledTextField">
-                                <rect key="frame" x="20" y="239" width="181" height="46"/>
+                                <rect key="frame" x="20" y="239" width="181" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Sets" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MZi-DG-IcX" customClass="JVFloatLabeledTextField">
-                                <rect key="frame" x="209" y="239" width="67.5" height="46"/>
+                                <rect key="frame" x="209" y="239" width="67.5" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="67.5" id="iTe-Vw-ruP"/>
                                 </constraints>
@@ -668,7 +718,7 @@ sign in to continue</string>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Reps" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bEf-Mz-ZFS" customClass="JVFloatLabeledTextField">
-                                <rect key="frame" x="287" y="239" width="60.5" height="46"/>
+                                <rect key="frame" x="287" y="239" width="60.5" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60.5" id="jqX-Db-0Eo"/>
                                 </constraints>
@@ -682,7 +732,7 @@ sign in to continue</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ex. Chest Day" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mCE-ga-1Qr" customClass="JVFloatLabeledTextField">
-                                <rect key="frame" x="20" y="130" width="374" height="46"/>
+                                <rect key="frame" x="20" y="142" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -690,7 +740,7 @@ sign in to continue</string>
                                 </connections>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0Er-mM-saA">
-                                <rect key="frame" x="0.0" y="370" width="414" height="372"/>
+                                <rect key="frame" x="0.0" y="358" width="414" height="384"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="kiO-76-n2q">
@@ -725,7 +775,7 @@ sign in to continue</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rDS-XH-cs2">
-                                <rect key="frame" x="342" y="201" width="72" height="22"/>
+                                <rect key="frame" x="342" y="195" width="72" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="72" id="PDB-47-ewG"/>
                                 </constraints>
@@ -1360,16 +1410,16 @@ How should we call you?</string>
         </scene>
     </scenes>
     <resources>
-        <image name="calendar" catalog="system" width="64" height="52"/>
-        <image name="camera" catalog="system" width="64" height="48"/>
+        <image name="calendar" catalog="system" width="128" height="106"/>
+        <image name="camera" catalog="system" width="128" height="96"/>
         <image name="dumbbell" width="88" height="46"/>
         <image name="next" width="265" height="68"/>
-        <image name="person" catalog="system" width="64" height="58"/>
-        <image name="plus" catalog="system" width="64" height="56"/>
-        <image name="plus.square.on.square" catalog="system" width="64" height="56"/>
+        <image name="person" catalog="system" width="128" height="117"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="plus.square.on.square" catalog="system" width="128" height="113"/>
         <image name="register" width="265" height="68"/>
         <image name="signIn" width="265" height="68"/>
         <image name="start now" width="265" height="68"/>
-        <image name="xmark" catalog="system" width="64" height="56"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
 </document>

@@ -10,4 +10,5 @@ import UIKit
 
 class ProgressGalleryCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var progressImageView: UIImageView!
 }

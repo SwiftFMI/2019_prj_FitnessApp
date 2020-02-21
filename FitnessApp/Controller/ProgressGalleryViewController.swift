@@ -11,36 +11,39 @@ import Firebase
 import FirebaseStorage
 import FirebaseFirestore
 
-class ProgressGalleryViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class ProgressGalleryViewController: UIViewController,UICollectionViewDelegate, UICollectionViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-    @IBOutlet weak var noImagesLabel: UILabel!
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        progressImages.imagesArray.count
+    }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? ProgressGalleryCollectionViewCell else { return UICollectionViewCell() }
+        cell.progressImageView.image = progressImages.imagesArray[indexPath.row]
+        return cell
+    }
+  
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = progressCollectionView.cellForItem(at: indexPath) as! ProgressGalleryCollectionViewCell
+        progressImage = cell.progressImageView.image!
+        performSegue(withIdentifier: "ShowImage", sender: self)
+    }
+    
+    @IBOutlet weak var progressCollectionView: UICollectionView!
     let db = Firestore.firestore()
     let user = Auth.auth().currentUser?.email
-    
-    let scrollView: UIScrollView = {
-        let scroll = UIScrollView()
-        scroll.isPagingEnabled = true
-        scroll.showsVerticalScrollIndicator = false
-        scroll.showsHorizontalScrollIndicator = false
-        scroll.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-        return scroll
-    }()
-    
-    //these should be the user images from the database
-    var imageArray = [UIImage()]
+    var progressImage = UIImage()
+
+    var progressImages = ProgressImages()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.addSubview(scrollView)
-        // setProgressImage()
-        setupImages(imageArray)
+        progressCollectionView.dataSource = self
+        progressCollectionView.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        setupImages(imageArray)
-        
+        super.viewWillAppear(true)
     }
     
     @IBAction func openCamera(_ sender: Any) {
@@ -84,10 +87,10 @@ class ProgressGalleryViewController: UIViewController, UINavigationControllerDel
                 let urlString = url.absoluteString
                 
                 let data = [
-                    "progressImages" : [[
+                    "progressImages" : [
                         "imageUid": documentID,
                         "imageURL": urlString
-                        ]]
+                        ]
                     
                 ]
                 dataReference.setData(data, merge: true) { (err) in
@@ -96,7 +99,6 @@ class ProgressGalleryViewController: UIViewController, UINavigationControllerDel
                     } else {
                         UserDefaults.standard.set(documentID, forKey: "imageURL")
                     }
-                    
                 }
             }
         }
@@ -110,48 +112,28 @@ class ProgressGalleryViewController: UIViewController, UINavigationControllerDel
             } else {
                 
                 if let data = document?.data() {
-                    if let dataObject = data["progressImages"] as? [[String:Any]] {
-                        for image in dataObject {
-                            guard let url = URL(string: image["imageURL"] as! String) else { return }
-                            self.downloadImage(url: url)
+                    if let dataObject = data["progressImages"] as? [String:Any] {
+                            guard let url = URL(string: dataObject["imageURL"] as! String) else { return }
+                        self.downloadImage(url: url)
                             print(url)
                         }
                     }
                 }
             }
+    }
+    
+    func downloadImage(url: URL) {
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            let data = try? Data(contentsOf: url)
+            self.progressImages.imagesArray.append(UIImage(data: data!)!)
+            self.progressCollectionView.reloadData()
         }
     }
     
-    func getData(from url: URL, completion: @escaping(Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-    
-    func downloadImage(url: URL){
-        
-        getData(from: url) { (data, response, error) in
-            guard let data = data, error == nil else { return }
-            print(response?.suggestedFilename ?? url.lastPathComponent)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                self.imageArray.append(UIImage(data: data)!)
-            }
-        }
-    }
-    
-    func setupImages(_ images: [UIImage]){
-        if images.isEmpty {
-            noImagesLabel.text =  "Your progress gallery is empty. \n Start tracking your progress now!"
-        }
-        for i in 0..<images.count {
-            
-            let imageView = UIImageView()
-            imageView.image = images[i]
-            let xPosition = UIScreen.main.bounds.width * CGFloat(i + 1)
-            imageView.frame = CGRect(x: xPosition, y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
-            imageView.contentMode = .scaleAspectFit
-            
-            scrollView.contentSize.width = scrollView.frame.width 
-            scrollView.addSubview(imageView)
-            scrollView.delegate = self as? UIScrollViewDelegate
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == ("ShowImage") {
+            let vc = segue.destination as? ImageDetailViewController
+            vc?.image = self.progressImage
         }
     }
 }
