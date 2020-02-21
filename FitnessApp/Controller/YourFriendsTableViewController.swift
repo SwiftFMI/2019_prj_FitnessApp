@@ -85,7 +85,7 @@ class YourFriendsTableViewController: UITableViewController {
         
         let delete = UIContextualAction(style: .destructive, title: "Remove") { (action, view, nil) in
             if let user = self.user {
-                let friendsReference = self.db.collection(Constants.CollectionNames.users).document(user).collection(Constants.CollectionNames.friends).document(friendToDelete!).delete()
+            self.db.collection(Constants.CollectionNames.users).document(user).collection(Constants.CollectionNames.friends).document(friendToDelete!).delete()
                 self.friends.removeAll { (user) -> Bool in
                     user == friendToDelete!
                 }

@@ -31,19 +31,17 @@
 		4CC1F83523C71DB6002AB729 /* CreateWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC1F83423C71DB6002AB729 /* CreateWorkoutViewController.swift */; };
 		4CC584D323FCF27600F4680A /* YourFriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC584D223FCF27600F4680A /* YourFriendsTableViewController.swift */; };
 		4CD3491E23C9A067005E0B69 /* YourWorkoutsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD3491D23C9A067005E0B69 /* YourWorkoutsViewController.swift */; };
-		4CE6DD5623CF462500AF7206 /* CustomWorkoutExercisesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE6DD5523CF462500AF7206 /* CustomWorkoutExercisesTableViewCell.swift */; };
-		C862C5DC23FC26DD00D8DACE /* ProgressGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C862C5DB23FC26DD00D8DACE /* ProgressGalleryViewController.swift */; };
-		C862C5DE23FC275E00D8DACE /* ProgressGalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C862C5DD23FC275E00D8DACE /* ProgressGalleryCollectionViewCell.swift */; };
-		C886ADE523EAEF2B00ADCFDF /* CustomWorkoutPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C886ADE423EAEF2B00ADCFDF /* CustomWorkoutPreviewViewController.swift */; };
-		C886ADE723EAEF3100ADCFDF /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C886ADE623EAEF3100ADCFDF /* ProfileTableViewController.swift */; };
 		4DF0920A23FAC10600AE3ACA /* CustomWorkoutPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF0920923FAC10600AE3ACA /* CustomWorkoutPreviewViewController.swift */; };
-		4DF0920C23FAC29B00AE3ACA /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF0920B23FAC29B00AE3ACA /* ProfileTableViewController.swift */; };
 		4DF0920E23FAC3E100AE3ACA /* FindFriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF0920D23FAC3E100AE3ACA /* FindFriendsTableViewController.swift */; };
 		4DF0921123FAC4C800AE3ACA /* CalendarExerciseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF0921023FAC4C800AE3ACA /* CalendarExerciseTableViewCell.swift */; };
 		4DF0921323FAC4E100AE3ACA /* CustomWorkoutExercisesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF0921223FAC4E100AE3ACA /* CustomWorkoutExercisesTableViewCell.swift */; };
 		4DF0921523FAC4F400AE3ACA /* WorkoutRoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF0921423FAC4F400AE3ACA /* WorkoutRoutineTableViewCell.swift */; };
 		4DF0921723FAC50E00AE3ACA /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF0921623FAC50E00AE3ACA /* UserTableViewCell.swift */; };
 		4DF0921A23FAD5A500AE3ACA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DF0921823FAD5A500AE3ACA /* Main.storyboard */; };
+		C862C5DC23FC26DD00D8DACE /* ProgressGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C862C5DB23FC26DD00D8DACE /* ProgressGalleryViewController.swift */; };
+		C862C5DE23FC275E00D8DACE /* ProgressGalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C862C5DD23FC275E00D8DACE /* ProgressGalleryCollectionViewCell.swift */; };
+		C886ADE523EAEF2B00ADCFDF /* CustomWorkoutPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C886ADE423EAEF2B00ADCFDF /* CustomWorkoutPreviewViewController.swift */; };
+		C886ADE723EAEF3100ADCFDF /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C886ADE623EAEF3100ADCFDF /* ProfileTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -163,12 +161,6 @@
 				C886ADE423EAEF2B00ADCFDF /* CustomWorkoutPreviewViewController.swift */,
 				4C79BBB723A3F11900885375 /* UserDetailsViewController.swift */,
 				4C65F5FE23AB998100782D66 /* CalendarViewController .swift */,
-				4C79EFB223CCE0B10038003D /* CalendarExerciseTableViewCell.swift */,
-				4CD3491D23C9A067005E0B69 /* YourWorkoutsViewController.swift */,
-				4CC1F83423C71DB6002AB729 /* CreateWorkoutViewController.swift */,
-				4CE6DD5523CF462500AF7206 /* CustomWorkoutExercisesTableViewCell.swift */,
-				4CA83C5823CEEFFA00E53AA3 /* WorkoutRoutineTableViewCell.swift */,
-				4C00EDB323DB18150075A3B2 /* ChooseWorkoutViewController.swift */,
 				4C071D3723EADC74002FB7FF /* CreateExerciseTableViewController.swift */,
 				C862C5DD23FC275E00D8DACE /* ProgressGalleryCollectionViewCell.swift */,
 				4C00EDB323DB18150075A3B2 /* ChooseWorkoutViewController.swift */,
@@ -533,7 +525,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C862C5DE23FC275E00D8DACE /* ProgressGalleryCollectionViewCell.swift in Sources */,
-				4CA83C5923CEEFFA00E53AA3 /* WorkoutRoutineTableViewCell.swift in Sources */,
 				4CA83C5B23CF136000E53AA3 /* Constants.swift in Sources */,
 				4C65F5FF23AB998100782D66 /* CalendarViewController .swift in Sources */,
 				4C071D3823EADC74002FB7FF /* CreateExerciseTableViewController.swift in Sources */,
@@ -543,7 +534,6 @@
 				4C79BBB623A3F10900885375 /* IntroductionViewController.swift in Sources */,
 				4C79BBB023A3EB4400885375 /* FirstSetupPageViewController.swift in Sources */,
 				4CD3491E23C9A067005E0B69 /* YourWorkoutsViewController.swift in Sources */,
-				4C79EFB323CCE0B10038003D /* CalendarExerciseTableViewCell.swift in Sources */,
 				C886ADE523EAEF2B00ADCFDF /* CustomWorkoutPreviewViewController.swift in Sources */,
 				4CC584D323FCF27600F4680A /* YourFriendsTableViewController.swift in Sources */,
 				4DF0921123FAC4C800AE3ACA /* CalendarExerciseTableViewCell.swift in Sources */,
@@ -735,14 +725,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FitnessApp/FitnessApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H3KK5B2KGB;
+				DEVELOPMENT_TEAM = QUXDV9RZJ7;
 				INFOPLIST_FILE = FitnessApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mentormate.FitnessApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mitkopenkov.FitnessApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

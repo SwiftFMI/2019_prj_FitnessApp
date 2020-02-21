@@ -23,7 +23,8 @@ class CreateWorkoutViewController: UIViewController, UITextFieldDelegate {
     var muscleGroupChosen: String = ""
     var exercises : [Exercise] = []
     
-
+    @IBOutlet weak var generate: UIButton!
+    
     
     @IBOutlet weak var muscleGroup: UIPickerView!
     
@@ -103,7 +104,12 @@ extension CreateWorkoutViewController: UITableViewDataSource, UITableViewDelegat
         cell.textLabel?.text = exercise.exerciseName
         return cell
     }
-    
+    func setUI() {
+        for tf in textFields {
+            tf.borderStyle = .none
+        }
+        generate.layer.cornerRadius = 15
+    }
 }
 
 extension CreateWorkoutViewController : UIPickerViewDataSource, UIPickerViewDelegate {

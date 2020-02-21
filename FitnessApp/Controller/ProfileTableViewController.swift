@@ -26,7 +26,9 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             if let e = error {
                 print(e)
             } else {
-                self.usernameLabel.text = doc?.data()!["username"] as? String
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.usernameLabel.text = doc?.data()!["username"] as? String
+                }
             }
         }
     }
@@ -113,6 +115,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             }
         
     }
+    
     
     func getData(from url: URL, completion: @escaping(Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()

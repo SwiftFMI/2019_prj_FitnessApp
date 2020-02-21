@@ -55,7 +55,6 @@ extension CustomWorkoutPreviewViewController : UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let exercise = exercises[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "previewExercise") as! CustomWorkoutExercisesTableViewCell
         return cell
     }

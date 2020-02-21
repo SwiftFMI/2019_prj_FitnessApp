@@ -99,7 +99,8 @@ extension YourWorkoutsViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let delete = UIContextualAction(style: .destructive, title: Constants.SwipeAction.delete) { (action, view, nil) in
-            if let user = Auth.auth().currentUser?.email, let workoutToBeDeleted = WorkoutManager.shared.workouts[indexPath.row] as? String{
+            let workoutToBeDeleted = WorkoutManager.shared.workouts[indexPath.row]
+            if let user = Auth.auth().currentUser?.email {
             self.db.collection(Constants.CollectionNames.users).document(user).collection(Constants.CollectionNames.customWorkouts).document(workoutToBeDeleted).delete()
                 
                 WorkoutManager.shared.numberOfWorkouts -= 1

@@ -301,12 +301,11 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         
         
         let done = UIContextualAction(style: .normal, title: Constants.SwipeAction.done) { (action, view, complete) in
-            if let exerciseDone = WorkoutManager.shared.exercises[indexPath.row].exerciseName as? String {              self.db.collection(Constants.CollectionNames.users).document(self.user!).collection(Constants.CollectionNames.schedueledWorkouts).document(self.currentDate).setData([
+            let exerciseDone = WorkoutManager.shared.exercises[indexPath.row].exerciseName;           self.db.collection(Constants.CollectionNames.users).document(self.user!).collection(Constants.CollectionNames.schedueledWorkouts).document(self.currentDate).setData([
                 exerciseDone : [
                     "done" : true
                 ]
             ], merge: true)
-            }
             let cell = tableView.cellForRow(at: indexPath) as! CalendarExerciseTableViewCell
             
             UIView.transition(with: cell.exerciseName, duration: 0.25, options: .transitionCrossDissolve, animations: {
