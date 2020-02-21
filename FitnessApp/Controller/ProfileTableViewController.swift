@@ -143,7 +143,10 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                 let vc = storyboard.instantiateViewController(identifier: Constants.ControllersIdentifiers.login) as! LoginViewController
                 userDefaults.removeObject(forKey: Constants.UserDef.email)
                 userDefaults.removeObject(forKey: Constants.UserDef.password)
+                vc.hidesBottomBarWhenPushed = true
                 navigationController?.setViewControllers([vc], animated: true)
+                self.dismiss(animated: true)
+                
             }
         }
     

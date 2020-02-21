@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="x9H-RX-hDN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16092.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="x9H-RX-hDN">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16082.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -199,26 +199,16 @@ sign in to continue</string>
                                     <action selector="addExercise:" destination="TuF-5K-sNj" eventType="touchUpInside" id="air-Py-Oh5"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qzN-Ta-cOJ">
-                                <rect key="frame" x="168" y="412" width="78" height="22"/>
-                                <state key="normal" image="camera" catalog="system"/>
-                                <connections>
-                                    <action selector="openCamera:" destination="TuF-5K-sNj" eventType="touchUpInside" id="291-9R-BIe"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="8O4-2z-CzV" firstAttribute="top" secondItem="ORq-Yu-D6x" secondAttribute="bottom" constant="8" id="5yw-f5-lAd"/>
                             <constraint firstItem="Wgt-hZ-jt7" firstAttribute="trailing" secondItem="ORq-Yu-D6x" secondAttribute="trailing" constant="20" id="EoM-Su-lnq"/>
                             <constraint firstItem="8O4-2z-CzV" firstAttribute="top" secondItem="qdV-Dx-xZf" secondAttribute="bottom" constant="8" id="HMB-kx-lDs"/>
-                            <constraint firstItem="ORq-Yu-D6x" firstAttribute="leading" secondItem="qzN-Ta-cOJ" secondAttribute="trailing" constant="59" id="QyD-TV-R6J"/>
                             <constraint firstItem="qdV-Dx-xZf" firstAttribute="top" secondItem="Wgt-hZ-jt7" secondAttribute="top" constant="360" id="UtM-Su-VOc"/>
                             <constraint firstItem="Wgt-hZ-jt7" firstAttribute="trailing" secondItem="8O4-2z-CzV" secondAttribute="trailing" id="YOI-iS-Lrv"/>
-                            <constraint firstItem="8O4-2z-CzV" firstAttribute="top" secondItem="qzN-Ta-cOJ" secondAttribute="bottom" constant="8" id="iRZ-oU-RYs"/>
                             <constraint firstItem="ORq-Yu-D6x" firstAttribute="baseline" secondItem="qdV-Dx-xZf" secondAttribute="baseline" id="jhF-t3-CF6"/>
                             <constraint firstItem="8O4-2z-CzV" firstAttribute="leading" secondItem="Wgt-hZ-jt7" secondAttribute="leading" id="nc3-hU-Up1"/>
-                            <constraint firstItem="qzN-Ta-cOJ" firstAttribute="leading" secondItem="qdV-Dx-xZf" secondAttribute="trailing" constant="38" id="qJf-lV-ngg"/>
                             <constraint firstItem="8O4-2z-CzV" firstAttribute="centerX" secondItem="XqS-vS-nlV" secondAttribute="centerX" id="r9h-UU-dd5"/>
                             <constraint firstItem="qdV-Dx-xZf" firstAttribute="leading" secondItem="Wgt-hZ-jt7" secondAttribute="leading" constant="16" id="wY5-hy-LTy"/>
                             <constraint firstAttribute="bottomMargin" secondItem="8O4-2z-CzV" secondAttribute="bottom" id="wd2-y7-kr0"/>
@@ -228,7 +218,6 @@ sign in to continue</string>
                     <tabBarItem key="tabBarItem" title="Calendar" image="calendar" catalog="system" id="Eva-cU-QFF"/>
                     <navigationItem key="navigationItem" id="0q9-JL-ZaR"/>
                     <connections>
-                        <outlet property="cameraButton" destination="qzN-Ta-cOJ" id="Gay-XO-3Zg"/>
                         <outlet property="tableView" destination="8O4-2z-CzV" id="hN8-1o-GIS"/>
                     </connections>
                 </viewController>
@@ -601,7 +590,7 @@ sign in to continue</string>
             </objects>
             <point key="canvasLocation" x="6939.130434782609" y="1887.7232142857142"/>
         </scene>
-        <!--Progress Gallery View Controller-->
+        <!--Progress-->
         <scene sceneID="ZNW-E9-DCh">
             <objects>
                 <viewController modalPresentationStyle="currentContext" id="9QK-Zy-Bx2" customClass="ProgressGalleryViewController" customModule="FitnessApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -609,23 +598,23 @@ sign in to continue</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aph-oj-j3l">
-                                <rect key="frame" x="20" y="266" width="374" height="264"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="R65-EI-KFA">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="AeW-xT-oF3">
+                                    <size key="itemSize" width="184" height="174"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="aph-oj-j3l" firstAttribute="leading" secondItem="vQY-4k-fvj" secondAttribute="leading" constant="20" id="CbY-ny-Vaf"/>
-                            <constraint firstItem="vQY-4k-fvj" firstAttribute="trailing" secondItem="aph-oj-j3l" secondAttribute="trailing" constant="20" id="VfI-Pb-g1o"/>
-                            <constraint firstItem="aph-oj-j3l" firstAttribute="top" secondItem="vQY-4k-fvj" secondAttribute="top" constant="178" id="pyl-1R-DkB"/>
-                            <constraint firstItem="vQY-4k-fvj" firstAttribute="bottom" secondItem="aph-oj-j3l" secondAttribute="bottom" constant="283" id="vSD-TF-X4w"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vQY-4k-fvj"/>
                     </view>
-                    <navigationItem key="navigationItem" id="otn-F2-hiI">
+                    <navigationItem key="navigationItem" title="Progress" id="otn-F2-hiI">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="camera" id="aux-4I-dmy">
                             <connections>
                                 <action selector="openCamera:" destination="9QK-Zy-Bx2" id="HLF-eL-Wdf"/>
@@ -633,12 +622,42 @@ sign in to continue</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="noImagesLabel" destination="aph-oj-j3l" id="WY7-Qy-mVn"/>
+                        <outlet property="progressCollectionView" destination="R65-EI-KFA" id="Lan-2F-oqK"/>
+                        <segue destination="Kja-NC-T3q" kind="showDetail" identifier="ShowImage" id="J1q-2D-gPf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="igZ-bt-4FX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5877" y="1065"/>
+            <point key="canvasLocation" x="5806" y="1040"/>
+        </scene>
+        <!--Image Detail View Controller-->
+        <scene sceneID="TSO-PK-44Y">
+            <objects>
+                <viewController storyboardIdentifier="ImageDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Kja-NC-T3q" customClass="ImageDetailViewController" customModule="FitnessApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jqn-OK-SXg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jx7-ea-OkJ">
+                                <rect key="frame" x="0.0" y="20" width="414" height="768"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Jx7-ea-OkJ" firstAttribute="top" secondItem="OgY-0Z-6d7" secondAttribute="top" constant="20" id="4Ys-w9-cow"/>
+                            <constraint firstItem="Jx7-ea-OkJ" firstAttribute="leading" secondItem="OgY-0Z-6d7" secondAttribute="leading" id="KoM-Vk-3I6"/>
+                            <constraint firstItem="OgY-0Z-6d7" firstAttribute="bottom" secondItem="Jx7-ea-OkJ" secondAttribute="bottom" constant="20" id="mat-be-6dL"/>
+                            <constraint firstItem="Jx7-ea-OkJ" firstAttribute="trailing" secondItem="OgY-0Z-6d7" secondAttribute="trailing" id="uGf-Gb-jMc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="OgY-0Z-6d7"/>
+                    </view>
+                    <connections>
+                        <outlet property="progressImage" destination="Jx7-ea-OkJ" id="8uW-3V-BjV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ziw-wa-pcO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6844.9275362318849" y="1068.75"/>
         </scene>
         <!--Create Workout View Controller-->
         <scene sceneID="vlF-Hh-fPz">
@@ -1360,16 +1379,15 @@ How should we call you?</string>
         </scene>
     </scenes>
     <resources>
-        <image name="calendar" catalog="system" width="64" height="52"/>
-        <image name="camera" catalog="system" width="64" height="48"/>
+        <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="dumbbell" width="88" height="46"/>
         <image name="next" width="265" height="68"/>
-        <image name="person" catalog="system" width="64" height="58"/>
-        <image name="plus" catalog="system" width="64" height="56"/>
-        <image name="plus.square.on.square" catalog="system" width="64" height="56"/>
+        <image name="person" catalog="system" width="128" height="117"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="plus.square.on.square" catalog="system" width="128" height="113"/>
         <image name="register" width="265" height="68"/>
         <image name="signIn" width="265" height="68"/>
         <image name="start now" width="265" height="68"/>
-        <image name="xmark" catalog="system" width="64" height="56"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
 </document>
