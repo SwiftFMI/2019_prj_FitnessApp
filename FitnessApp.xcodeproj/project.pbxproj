@@ -39,11 +39,13 @@
 		4DF0921723FAC50E00AE3ACA /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF0921623FAC50E00AE3ACA /* UserTableViewCell.swift */; };
 		4DF0921A23FAD5A500AE3ACA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DF0921823FAD5A500AE3ACA /* Main.storyboard */; };
 		C862C5DC23FC26DD00D8DACE /* ProgressGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C862C5DB23FC26DD00D8DACE /* ProgressGalleryViewController.swift */; };
-		C862C5DE23FC275E00D8DACE /* ProgressGalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C862C5DD23FC275E00D8DACE /* ProgressGalleryCollectionViewCell.swift */; };
 		C87CE2A623FFFED600EC3A5C /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87CE2A523FFFED600EC3A5C /* ImageDetailViewController.swift */; };
 		C87CE2AA23FFFF5F00EC3A5C /* ProgressImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87CE2A923FFFF5F00EC3A5C /* ProgressImages.swift */; };
+		C87F1C1D2400116900C1EF24 /* ProgressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87F1C1B2400116900C1EF24 /* ProgressCollectionViewCell.swift */; };
+		C87F1C1E2400116900C1EF24 /* ProgressCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C87F1C1C2400116900C1EF24 /* ProgressCollectionViewCell.xib */; };
 		C886ADE523EAEF2B00ADCFDF /* CustomWorkoutPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C886ADE423EAEF2B00ADCFDF /* CustomWorkoutPreviewViewController.swift */; };
 		C886ADE723EAEF3100ADCFDF /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C886ADE623EAEF3100ADCFDF /* ProfileTableViewController.swift */; };
+		C8BE8195240015C200A449AC /* ProgressImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BE8194240015C200A449AC /* ProgressImages.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,11 +110,13 @@
 		A37084EFD590C5C942A97C0E /* Pods-FitnessAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FitnessAppTests.debug.xcconfig"; path = "Target Support Files/Pods-FitnessAppTests/Pods-FitnessAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C1179209AE56A41F7BB74A49 /* Pods_FitnessApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FitnessApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C862C5DB23FC26DD00D8DACE /* ProgressGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressGalleryViewController.swift; sourceTree = "<group>"; };
-		C862C5DD23FC275E00D8DACE /* ProgressGalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProgressGalleryCollectionViewCell.swift; path = FitnessApp/Controller/ProgressGalleryCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		C87CE2A523FFFED600EC3A5C /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageDetailViewController.swift; path = FitnessApp/Controller/ImageDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		C87CE2A923FFFF5F00EC3A5C /* ProgressImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProgressImages.swift; path = /Users/rosiana.ladzheva/Projects2/2019_prj_FitnessApp/FitnessApp/Controller/ProgressImages.swift; sourceTree = "<absolute>"; };
+		C87F1C1B2400116900C1EF24 /* ProgressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCollectionViewCell.swift; sourceTree = "<group>"; };
+		C87F1C1C2400116900C1EF24 /* ProgressCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressCollectionViewCell.xib; sourceTree = "<group>"; };
 		C886ADE423EAEF2B00ADCFDF /* CustomWorkoutPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomWorkoutPreviewViewController.swift; sourceTree = "<group>"; };
 		C886ADE623EAEF3100ADCFDF /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
+		C8BE8194240015C200A449AC /* ProgressImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProgressImages.swift; path = /Users/rosiana.ladzheva/Projects2/2019_prj_FitnessApp/FitnessApp/Controller/ProgressImages.swift; sourceTree = "<absolute>"; };
 		D0D4BC973BB5E8EF9625C2F0 /* Pods-FitnessAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FitnessAppTests.release.xcconfig"; path = "Target Support Files/Pods-FitnessAppTests/Pods-FitnessAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		FE403BFF36FCB1AAFBA80404 /* Pods-FitnessApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FitnessApp.release.xcconfig"; path = "Target Support Files/Pods-FitnessApp/Pods-FitnessApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -157,9 +161,12 @@
 		4C79BBAB23A3E42900885375 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C8BE8194240015C200A449AC /* ProgressImages.swift */,
 				C862C5DB23FC26DD00D8DACE /* ProgressGalleryViewController.swift */,
 				4C79BBA823A3E41D00885375 /* LoginViewController.swift */,
 				4C79BBAD23A3E45300885375 /* RegisterViewController.swift */,
+				C87F1C1B2400116900C1EF24 /* ProgressCollectionViewCell.swift */,
+				C87F1C1C2400116900C1EF24 /* ProgressCollectionViewCell.xib */,
 				4C79BBAF23A3EB4400885375 /* FirstSetupPageViewController.swift */,
 				4C79BBB523A3F10900885375 /* IntroductionViewController.swift */,
 				C886ADE623EAEF3100ADCFDF /* ProfileTableViewController.swift */,
@@ -167,7 +174,6 @@
 				4C79BBB723A3F11900885375 /* UserDetailsViewController.swift */,
 				4C65F5FE23AB998100782D66 /* CalendarViewController .swift */,
 				4C071D3723EADC74002FB7FF /* CreateExerciseTableViewController.swift */,
-				C862C5DD23FC275E00D8DACE /* ProgressGalleryCollectionViewCell.swift */,
 				4C00EDB323DB18150075A3B2 /* ChooseWorkoutViewController.swift */,
 				4CD3491D23C9A067005E0B69 /* YourWorkoutsViewController.swift */,
 				4CC1F83423C71DB6002AB729 /* CreateWorkoutViewController.swift */,
@@ -401,6 +407,7 @@
 			files = (
 				4C953CD723A3BB0800F5B618 /* LaunchScreen.storyboard in Resources */,
 				4C79BBB223A3EC2700885375 /* GoogleService-Info.plist in Resources */,
+				C87F1C1E2400116900C1EF24 /* ProgressCollectionViewCell.xib in Resources */,
 				4C953CD423A3BB0800F5B618 /* Assets.xcassets in Resources */,
 				4DF0921A23FAD5A500AE3ACA /* Main.storyboard in Resources */,
 			);
@@ -530,7 +537,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C862C5DE23FC275E00D8DACE /* ProgressGalleryCollectionViewCell.swift in Sources */,
 				4CA83C5B23CF136000E53AA3 /* Constants.swift in Sources */,
 				4C65F5FF23AB998100782D66 /* CalendarViewController .swift in Sources */,
 				4C071D3823EADC74002FB7FF /* CreateExerciseTableViewController.swift in Sources */,
@@ -549,11 +555,13 @@
 				4C79BBAE23A3E45300885375 /* RegisterViewController.swift in Sources */,
 				4C65F60523AE489700782D66 /* WorkoutModel.swift in Sources */,
 				4DF0921523FAC4F400AE3ACA /* WorkoutRoutineTableViewCell.swift in Sources */,
+				C87F1C1D2400116900C1EF24 /* ProgressCollectionViewCell.swift in Sources */,
 				4DF0920A23FAC10600AE3ACA /* CustomWorkoutPreviewViewController.swift in Sources */,
 				4C953CD223A3BB0600F5B618 /* FitnessApp.xcdatamodeld in Sources */,
 				4C953CC823A3BB0600F5B618 /* AppDelegate.swift in Sources */,
 				C87CE2AA23FFFF5F00EC3A5C /* ProgressImages.swift in Sources */,
 				4C953CCA23A3BB0600F5B618 /* SceneDelegate.swift in Sources */,
+				C8BE8195240015C200A449AC /* ProgressImages.swift in Sources */,
 				4CC1F83523C71DB6002AB729 /* CreateWorkoutViewController.swift in Sources */,
 				C862C5DC23FC26DD00D8DACE /* ProgressGalleryViewController.swift in Sources */,
 				4C79BBB823A3F11900885375 /* UserDetailsViewController.swift in Sources */,

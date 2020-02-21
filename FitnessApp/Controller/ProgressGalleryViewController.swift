@@ -51,26 +51,45 @@ class ProgressGalleryViewController: UIViewController, UINavigationControllerDel
 }
 
 //MARK: - UICollectionView
-extension ProgressGalleryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ProgressGalleryViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
            progressImages.imagesArray.count
        }
        
        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-           guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? ProgressGalleryCollectionViewCell else { return UICollectionViewCell() }
-           cell.progressImageView.image = progressImages.imagesArray[indexPath.row]
+        guard let cell = progressCollectionView.dequeueReusableCell(withReuseIdentifier: "ProgressCollectionViewCell", for: indexPath) as? ProgressCollectionViewCell
+            else { return UICollectionViewCell() }
+        
+        let image = progressImages.imagesArray[indexPath.row]
+        cell.configureCell(with: image)
+        cell.contentView.frame = cell.bounds
+        
            return cell
        }
      
        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-           let cell = progressCollectionView.cellForItem(at: indexPath) as! ProgressGalleryCollectionViewCell
+           let cell = progressCollectionView.cellForItem(at: indexPath) as! ProgressCollectionViewCell
            progressImage = cell.progressImageView.image!
            performSegue(withIdentifier: "ShowImage", sender: self)
        }
        
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        guard let flowLayout = progressCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        
+        flowLayout.itemSize = progressCollectionView.frame.size
+        
+        flowLayout.invalidateLayout()
+        
+        progressCollectionView.collectionViewLayout.invalidateLayout()
+    }
+    
     func configureCollectionView() {
         progressCollectionView.dataSource = self
         progressCollectionView.delegate = self
+        progressCollectionView.register(UINib(nibName: "ProgressCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ProgressCollectionViewCell")
     }
 }
 
