@@ -11,41 +11,27 @@ import Firebase
 import FirebaseStorage
 import FirebaseFirestore
 
-class ProgressGalleryViewController: UIViewController,UICollectionViewDelegate, UICollectionViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        progressImages.imagesArray.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? ProgressGalleryCollectionViewCell else { return UICollectionViewCell() }
-        cell.progressImageView.image = progressImages.imagesArray[indexPath.row]
-        return cell
-    }
-  
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = progressCollectionView.cellForItem(at: indexPath) as! ProgressGalleryCollectionViewCell
-        progressImage = cell.progressImageView.image!
-        performSegue(withIdentifier: "ShowImage", sender: self)
-    }
-    
+class ProgressGalleryViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+
+    //MARK: - IBOutlets
     @IBOutlet weak var progressCollectionView: UICollectionView!
+    
+    //MARK: - Properties
     let db = Firestore.firestore()
     let user = Auth.auth().currentUser?.email
     var progressImage = UIImage()
-
     var progressImages = ProgressImages()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        progressCollectionView.dataSource = self
-        progressCollectionView.delegate = self
+       configureCollectionView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(true)
     }
     
+    //MARK: - IBAction
     @IBAction func openCamera(_ sender: Any) {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .camera
@@ -54,14 +40,54 @@ class ProgressGalleryViewController: UIViewController,UICollectionViewDelegate, 
         present(imagePicker, animated: true)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true, completion: nil)
-        
-        let newImage = info[.originalImage] as? UIImage
-        addImageToProgressArray()
-        uploadPhoto(image: newImage!)
+
+    //MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == ("ShowImage") {
+            let vc = segue.destination as? ImageDetailViewController
+            vc?.image = self.progressImage
+        }
     }
-    
+}
+
+//MARK: - UICollectionView
+extension ProgressGalleryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+           progressImages.imagesArray.count
+       }
+       
+       func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+           guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? ProgressGalleryCollectionViewCell else { return UICollectionViewCell() }
+           cell.progressImageView.image = progressImages.imagesArray[indexPath.row]
+           return cell
+       }
+     
+       func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+           let cell = progressCollectionView.cellForItem(at: indexPath) as! ProgressGalleryCollectionViewCell
+           progressImage = cell.progressImageView.image!
+           performSegue(withIdentifier: "ShowImage", sender: self)
+       }
+       
+    func configureCollectionView() {
+        progressCollectionView.dataSource = self
+        progressCollectionView.delegate = self
+    }
+}
+
+//MARK: - Camera methods
+extension ProgressGalleryViewController {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+         picker.dismiss(animated: true, completion: nil)
+         
+         let newImage = info[.originalImage] as? UIImage
+         addImageToProgressArray()
+         uploadPhoto(image: newImage!)
+     }
+}
+
+
+//MARK: - Database image methods
+extension ProgressGalleryViewController {
     func uploadPhoto(image: UIImage) {
         guard let data = image.jpegData(compressionQuality: 1.0) else {
             return
@@ -127,13 +153,6 @@ class ProgressGalleryViewController: UIViewController,UICollectionViewDelegate, 
             let data = try? Data(contentsOf: url)
             self.progressImages.imagesArray.append(UIImage(data: data!)!)
             self.progressCollectionView.reloadData()
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == ("ShowImage") {
-            let vc = segue.destination as? ImageDetailViewController
-            vc?.image = self.progressImage
         }
     }
 }
